@@ -1,0 +1,604 @@
+[
+  {
+    "Date": "",
+    "Narration": "",
+    "Debit": "0.0",
+    "Credit": "0.0",
+    "Balance": "0.0"
+  },
+  {
+    "Date": "",
+    "Narration": "BROUGHT FORWARD",
+    "Debit": "",
+    "Credit": "",
+    "Balance": "0.00"
+  },
+  {
+    "Date": "02-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/691886959032/SHAIK\nAM/CNRB/azharhyd44/Paym\n0097732162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "50.00",
+    "Balance": "50.00CR"
+  },
+  {
+    "Date": "02-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/539916301512/SHAIK\nAM/CNRB/azharhyd44/UPI\n0097690162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "40.00",
+    "Credit": "",
+    "Balance": "10.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/540095871494/KUNNURU\n/UTIB/venkatredd/UPI\n0097733162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "150.00",
+    "Balance": "160.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503471350032/Mr\nAngot/IDIB/angothbhas/UPI\n0097691162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "10.00",
+    "Credit": "",
+    "Balance": "150.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503475608005/Mr\nPatha/CBIN/maheshnaya/UPI\n0097691162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "50.00",
+    "Credit": "",
+    "Balance": "100.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540055256552/Tawwakka\n/UTIB/gpay-11244/UPI\n0097691162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "20.00",
+    "Credit": "",
+    "Balance": "80.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540059290110/DOSAPATI\n/YESB/q107626848/UPI\n0097691162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "56.00",
+    "Credit": "",
+    "Balance": "24.00CR"
+  },
+  {
+    "Date": "03-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540050771771/KETHAVAT\n/UTIB/9390378432/UPI\n0097691162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "10.00",
+    "Credit": "",
+    "Balance": "14.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/503523951772/Shreya\nAzm/SBIN/Shreyaazmath/UPI\n0097734162099\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "200.00",
+    "Balance": "214.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503502342908/Syed\nSal/YESB/paytmqry58/UPI\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "200.00",
+    "Credit": "",
+    "Balance": "14.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540186327978/LAXMAN\nRAM/YESB/q674515071/UP\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "10.00",
+    "Credit": "",
+    "Balance": "4.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/500596704873/KUNNURU\n/UTIB/kunnuruven/Paym\n0097734162099\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "100.00",
+    "Balance": "104.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/503514654426/SYED\nIMR/HDFC/syedimranb/UPI\n0097734162099\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "200.00",
+    "Balance": "304.00CR"
+  },
+  {
+    "Date": "04-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503513478659/LAXMAN\nRAM/YESB/q674515071/UP\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "50.00",
+    "Credit": "",
+    "Balance": "254.00CR"
+  },
+  {
+    "Date": "05-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540290643509/Syed\nSal/YESB/paytmqry58/UPI\n0097693162093\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "200.00",
+    "Credit": "",
+    "Balance": "54.00CR"
+  },
+  {
+    "Date": "05-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503687704878/IRFAN\nUL/FDRL/bharatpe.9/Pay\n0097693162093\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "42.00",
+    "Credit": "",
+    "Balance": "12.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/175874638866/KUNNURU\n/UTIB/kunnuruven/adva\n0097737162096\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "1,000.00",
+    "Balance": "1,012.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503824526538/Mobikwik/\nPPIW/ombk.aaea8/UPI\n0097695162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "200.00",
+    "Credit": "",
+    "Balance": "812.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540445933188/MD\nAAMIR/YESB/q412949847/UPI\n0097695162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "40.00",
+    "Credit": "",
+    "Balance": "772.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540480151198/JIBRAN\nP/YESB/paytmqrpl1/UPI\n0097695162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "76.00",
+    "Credit": "",
+    "Balance": "696.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503867589238/KHAYYUM\n/YESB/bharatpe90/Pay\n0097695162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "35.00",
+    "Credit": "",
+    "Balance": "661.00CR"
+  },
+  {
+    "Date": "07-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503871076874/MOHAMM\nED/YESB/q723727530/UPI\n0097695162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "48.00",
+    "Credit": "",
+    "Balance": "613.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503976403998/SYED\nSAL/FDRL/bharatpe.9/Pay\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "200.00",
+    "Credit": "",
+    "Balance": "413.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503976437801/ABDUL\nSA/YESB/bharatpe9i/Pay\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "100.00",
+    "Credit": "",
+    "Balance": "313.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503978666570/APPALI\nM/YESB/paytm.s18l/UPI\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "10.00",
+    "Credit": "",
+    "Balance": "303.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503995066707/LAXMAN\nRAM/YESB/q674515071/UP\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "40.00",
+    "Credit": "",
+    "Balance": "263.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/503972662440/SYED\nAMJAD/INDB/7981306112/UP\n0097738162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "550.00",
+    "Balance": "813.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503919551911/MD\nAAMIR/YESB/q608101651/UPI\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "50.00",
+    "Credit": "",
+    "Balance": "763.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503936120735/MANJULA/\nCNRB/ppr.03885./UPI\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "475.00",
+    "Credit": "",
+    "Balance": "288.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503992414578/RAMSARU\nP/YESB/paytmqr5ve/UPI\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "50.00",
+    "Credit": "",
+    "Balance": "238.00CR"
+  },
+  {
+    "Date": "08-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/503996038821/ALI/UTIB/g\npay-11213/UPI\n0097696162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "140.00",
+    "Credit": "",
+    "Balance": "98.00CR"
+  },
+  {
+    "Date": "09-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/504024550664/ABDULLA\nH/YESB/paytmqr62u/UPI\n0097690162095\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "40.00",
+    "Credit": "",
+    "Balance": "58.00CR"
+  },
+  {
+    "Date": "10-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/540711140327/YATA\nSAN/IOBA/santhoshya/UPI\n0097733162090\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "1,300.00",
+    "Balance": "1,358.00CR"
+  },
+  {
+    "Date": "11-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/504263174338/Shreya\nABD/YESB/paytmqr64m/UPI\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "32.00",
+    "Credit": "",
+    "Balance": "1,326.00CR"
+  },
+  {
+    "Date": "11-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540803458904/Shreya\nABD/YESB/paytmqr64m/UPI\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "32.00",
+    "Credit": "",
+    "Balance": "1,294.00CR"
+  },
+  {
+    "Date": "11-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/504251433615/SHOEB\nALI/YESB/q516557839/UP\n0097692162094\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "100.00",
+    "Credit": "",
+    "Balance": "1,194.00CR"
+  },
+  {
+    "Date": "12-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/504355015532/ABDUL\nSA/YESB/bharatpe9i/Pay\n0097693162093\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "100.00",
+    "Credit": "",
+    "Balance": "1,094.00CR"
+  },
+  {
+    "Date": "12-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540929104806/MD\nAAMIR/YESB/q608101651/UPI\n0097693162093\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "36.00",
+    "Credit": "",
+    "Balance": "1,058.00CR"
+  },
+  {
+    "Date": "12-02-2025",
+    "Narration": "CEMTEX DEP\nUPI/DRC/504263174338/1102202\n5/23259",
+    "Debit": "",
+    "Credit": "32.00",
+    "Balance": "1,090.00CR"
+  },
+  {
+    "Date": "12-02-2025",
+    "Narration": "WDL TFR\nUPI/DR/540917349019/Shreya\nABD/YESB/q170975975/UPI\n0097693162093\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "100.00",
+    "Credit": "",
+    "Balance": "990.00CR"
+  },
+  {
+    "Date": "12-02-2025",
+    "Narration": "DEP TFR\nUPI/CR/504349795564/Shreya\nAzeem/FINO/azimk2757-/UP\n0097735162098\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "4,000.00",
+    "Balance": "4,990.00CR"
+  },
+  {
+    "Date": "13-02-2025",
+    "Narration": "ATM WDL\nATM CASH 4979 LHO FRONT\nGATE, OPP:ENHYDERABAD",
+    "Debit": "4,500.00",
+    "Credit": "",
+    "Balance": "490.00CR"
+  },
+  {
+    "Date": "16-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50472 +PHOOL BAG\nHYDERABAD",
+    "Debit": "400.00",
+    "Credit": "",
+    "Balance": "90.00CR"
+  },
+  {
+    "Date": "17-02-2025",
+    "Narration": "WDL TFR\nINSUFFICIENT BAL ATM DECLINE\nCHARGE\n0099937204139\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "23.60",
+    "Credit": "",
+    "Balance": "66.40CR"
+  },
+  {
+    "Date": "17-02-2025",
+    "Narration": "WDL TFR\nINSUFFICIENT BAL ATM DECLINE\nCHARGE\n0099937204139\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "23.60",
+    "Credit": "",
+    "Balance": "42.80CR"
+  },
+  {
+    "Date": "17-02-2025",
+    "Narration": "DEP TFR\nNEFT*UTIB0003385*AXOIC04811\n259993*BMSS ENGINEERS\n0097234044300\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "14,394.00",
+    "Balance": "14,436.80CR"
+  },
+  {
+    "Date": "17-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50482 +PHOOL BAG\nHYDERABAD",
+    "Debit": "7,500.00",
+    "Credit": "",
+    "Balance": "6,936.80CR"
+  },
+  {
+    "Date": "18-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50492 +PHOOL BAG\nHYDERABAD",
+    "Debit": "500.00",
+    "Credit": "",
+    "Balance": "6,436.80CR"
+  },
+  {
+    "Date": "20-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50512 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,524.78",
+    "Credit": "",
+    "Balance": "4,912.02CR"
+  },
+  {
+    "Date": "22-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50530 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,024.78",
+    "Credit": "",
+    "Balance": "3,887.24CR"
+  },
+  {
+    "Date": "24-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50550 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,024.78",
+    "Credit": "",
+    "Balance": "2,862.46CR"
+  },
+  {
+    "Date": "27-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50580 +PHOOL BAG\nHYDERABAD",
+    "Debit": "324.78",
+    "Credit": "",
+    "Balance": "2,537.68CR"
+  },
+  {
+    "Date": "27-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50582 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,024.78",
+    "Credit": "",
+    "Balance": "1,512.90CR"
+  },
+  {
+    "Date": "28-02-2025",
+    "Narration": "ATM WDL\nATM CASH 50590 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,424.78",
+    "Credit": "",
+    "Balance": "88.12CR"
+  },
+  {
+    "Date": "28-02-2025",
+    "Narration": "WDL TFR\nINSUFFICIENT BAL ATM DECLINE\nCHARGE\n0099937204139\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "23.60",
+    "Credit": "",
+    "Balance": "64.52CR"
+  },
+  {
+    "Date": "13-03-2025",
+    "Narration": "DEP TFR\nUPI/CR/101432437236/Shreya\nGHO/HDFC/Shreyaghouse/UPI\n0097736162097\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "10.00",
+    "Balance": "74.52CR"
+  },
+  {
+    "Date": "13-03-2025",
+    "Narration": "DEP TFR\nUPI/CR/543880819388/Abdul\nJ/SBIN/zohrakausa/UPI\n0097736162097\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "3,000.00",
+    "Balance": "3,074.52CR"
+  },
+  {
+    "Date": "15-03-2025",
+    "Narration": "DEP TFR\nNEFT*UTIB0003385*AXOIC07484\n081150*BMSS ENGINEERS\n0097205044304\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "28,700.00",
+    "Balance": "31,774.52CR"
+  },
+  {
+    "Date": "17-03-2025",
+    "Narration": "ATM WDL\nATM CASH 50761 +PHOOL BAG\nHYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "21,774.52CR"
+  },
+  {
+    "Date": "17-03-2025",
+    "Narration": "ATM WDL\nATM CASH 50761 +PHOOL BAG\nHYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "11,774.52CR"
+  },
+  {
+    "Date": "17-03-2025",
+    "Narration": "ATM WDL\nATM CASH 50761 +PHOOL BAG\nHYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "1,774.52CR"
+  },
+  {
+    "Date": "25-03-2025",
+    "Narration": "INTEREST CREDIT",
+    "Debit": "",
+    "Credit": "11.00",
+    "Balance": "1,785.52CR"
+  },
+  {
+    "Date": "26-03-2025",
+    "Narration": "ATM WDL\nATM CASH 50851 +PHOOL BAG\nHYDERABAD",
+    "Debit": "1,500.00",
+    "Credit": "",
+    "Balance": "285.52CR"
+  },
+  {
+    "Date": "06-04-2025",
+    "Narration": "DEP TFR\nUPI/CR/102729979180/FARHEEN\n/CNRB/farhensult/UPI\n0097732162091\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "20,000.00",
+    "Balance": "20,285.52CR"
+  },
+  {
+    "Date": "07-04-2025",
+    "Narration": "ATM WDL\nATM CASH 50970 +PHOOL BAG\nHYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "10,285.52CR"
+  },
+  {
+    "Date": "07-04-2025",
+    "Narration": "ATM WDL\nATM CASH 50970 +PHOOL BAG\nHYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "285.52CR"
+  },
+  {
+    "Date": "08-04-2025",
+    "Narration": "DEP TFR\nUPI/CR/102819740629/AKBAR\nKHAN/HDFC/akbarkhan1/re\n0097734162099\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "18,500.00",
+    "Balance": "18,785.52CR"
+  },
+  {
+    "Date": "08-04-2025",
+    "Narration": "ATM WDL\nATM CASH 50982 +DEEWAN\nDHABA HYDERABAD",
+    "Debit": "10,000.00",
+    "Credit": "",
+    "Balance": "8,785.52CR"
+  },
+  {
+    "Date": "08-04-2025",
+    "Narration": "ATM WDL\nATM CASH 50982 +DEEWAN\nDHABA HYDERABAD",
+    "Debit": "8,500.00",
+    "Credit": "",
+    "Balance": "285.52CR"
+  },
+  {
+    "Date": "10-04-2025",
+    "Narration": "DEP TFR\nUPI/CR/779426958030/BAJARU\n/SBIN/9550734580/Paym\n0097736162097\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "1,300.00",
+    "Balance": "1,585.52CR"
+  },
+  {
+    "Date": "11-04-2025",
+    "Narration": "DEP TFR\nUPI/CR/403772591437/MOHAMME\nD/KKBK/9000326194/Paym\n0097737162096\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "2,000.00",
+    "Balance": "3,585.52CR"
+  },
+  {
+    "Date": "11-04-2025",
+    "Narration": "ATM WDL\nATM CASH 51012 +DEEWAN\nDHABA HYDERABAD",
+    "Debit": "3,500.00",
+    "Credit": "",
+    "Balance": "85.52CR"
+  },
+  {
+    "Date": "23-04-2025",
+    "Narration": "DEP TFR\nRTGS UTR NO:\nBDBLR62025042318194052\n0098337044306\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "5,00,000.00",
+    "Balance": "5,00,085.52CR"
+  },
+  {
+    "Date": "23-04-2025",
+    "Narration": "CAS CASH CHEQUE\nCASH WITHDRAWAL BY CHQ",
+    "Debit": "5,00,000.00",
+    "Credit": "",
+    "Balance": "85.52CR"
+  },
+  {
+    "Date": "24-04-2025",
+    "Narration": "DEP TFR\nRTGS UTR NO:\nIDFBR52025042400625028\n0099855044301\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "5,00,000.00",
+    "Balance": "5,00,085.52CR"
+  },
+  {
+    "Date": "24-04-2025",
+    "Narration": "CAS CASH CHEQUE\nSELF",
+    "Debit": "5,00,000.00",
+    "Credit": "",
+    "Balance": "85.52CR"
+  },
+  {
+    "Date": "24-04-2025",
+    "Narration": "DEP TFR\nRTGS UTR NO:\nIDFBR52025042400632798\n0098335044308\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "",
+    "Credit": "8,05,000.00",
+    "Balance": "8,05,085.52CR"
+  },
+  {
+    "Date": "24-04-2025",
+    "Narration": "CAS CASH CHEQUE\nCASH WITHDRAWAL BY CHQ",
+    "Debit": "3,05,000.00",
+    "Credit": "",
+    "Balance": "5,00,085.52CR"
+  },
+  {
+    "Date": "24-04-2025",
+    "Narration": "CAS CASH CHEQUE\nCASH WITHDRAWAL BY CHQ",
+    "Debit": "5,00,000.00",
+    "Credit": "",
+    "Balance": "85.52CR"
+  },
+  {
+    "Date": "25-04-2025",
+    "Narration": "ATM WDL\nATM CASH 51151 +DEEWAN\nDHABA HYDERABAD\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "11.80",
+    "Credit": "",
+    "Balance": "73.72CR"
+  },
+  {
+    "Date": "06-05-2025",
+    "Narration": "INTEREST CREDIT",
+    "Debit": "",
+    "Credit": "2.00",
+    "Balance": "75.72CR"
+  },
+  {
+    "Date": "06-05-2025",
+    "Narration": "CR CLOS AMT RND",
+    "Debit": "",
+    "Credit": "0.28",
+    "Balance": "76.00CR"
+  },
+  {
+    "Date": "06-05-2025",
+    "Narration": "on cust request\nAT 20413 HYDERABAD -\nDABEERPURA",
+    "Debit": "76.00",
+    "Credit": "",
+    "Balance": "0.00"
+  },
+  {
+    "Date": "",
+    "Narration": "CLOSING BALANCE",
+    "Debit": "",
+    "Credit": "",
+    "Balance": "0.00"
+  }
+]

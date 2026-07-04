@@ -85,13 +85,35 @@ def run_pipeline(file_path, use_chandra=False, chandra_api_base="http://localhos
     
     report_content, audit_results = generate_report(statement_jsons, output_dir, report_path)
     
+    # ── STEP 5: GRAPH ENGINE ──
+    print("\n[STEP 5] Building Directed Transaction Graph & Running Graph Metrics...")
+    import json
+    from backend.graph.graph_engine import GraphEngine
+    
+    ge = GraphEngine(clean_df.to_dict(orient="records"))
+    graph_data = ge.get_graph_data()
+    graph_summary = ge.get_summary()
+    graph_hubs = ge.get_hubs()
+    graph_cycles = ge.get_round_trips()
+    
+    # Save graph data locally
+    graph_json_path = os.path.join(output_dir, f"{base_name}_graph.json")
+    with open(graph_json_path, "w", encoding="utf-8") as f_gr:
+        json.dump(graph_data, f_gr, indent=4)
+        
+    print(f"Graph constructed with {graph_summary['num_nodes']} nodes and {graph_summary['num_edges']} edges.")
+    
     print("\nIntegration Verification Success!")
     return {
         "status": "success",
         "guardrail": guardrail_result,
         "report_content": report_content,
         "dataframe": clean_df.to_dict(orient="records"),
-        "audit_results": audit_results
+        "audit_results": audit_results,
+        "graph_data": graph_data,
+        "graph_summary": graph_summary,
+        "graph_hubs": graph_hubs,
+        "graph_cycles": graph_cycles
     }
 
 if __name__ == "__main__":
