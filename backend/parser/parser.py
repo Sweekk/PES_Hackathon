@@ -235,18 +235,18 @@ class UniversalDatasetParser:
     def get_column_aliases(self):
         return {
             "date": [
-                "date", "transaction date", "txn date", "posting date", "value date", "post date",
-                "txn dt", "transaction dt", "post dt", "posting dt", "tran date", "val date", 
+                "date", "transaction date", "trans date", "txn date", "posting date", "value date", "post date",
+                "txn dt", "trans dt", "transaction dt", "post dt", "posting dt", "tran date", "val date", 
             ],
             "description": [
                 "description", "remarks", "remark", "narration", "particulars", "particular", "details", "txn type",
                 "tran particular", "tran particulars", "transaction particulars", "tran rmks", "tran remarks"
             ],
             "debit": [
-                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount","dr amt"
+                "debit", "debits", "withdrawal", "withdrawals", "withdraw", "withdraws", "dr", "debit amount", "withdrawal amount", "dr amt", "debit amt", "withdrawal amt"
             ],
             "credit": [
-                "credit", "deposit", "cr", "credit amount", "deposit amount","cr amt"
+                "credit", "credits", "deposit", "deposits", "cr", "credit amount", "deposit amount", "cr amt", "credit amt", "deposit amt"
             ],
             "balance": [
                 "balance", "closing balance", "available balance", "balance amount"
@@ -275,12 +275,23 @@ class UniversalDatasetParser:
     def infer_column(self, column_name, series):
         aliases = self.get_column_aliases()
         name = str(column_name).lower().strip()
+        name = re.sub(r"\s+", " ", name)
         name = re.sub(r"_+", " ", name)
 
         # ---------------- Alias Matching ----------------
         for canonical, words in aliases.items():
             if name in words:
                 return canonical, 100
+
+        # ---------------- Substring Alias Matching ----------------
+        for canonical, words in aliases.items():
+            for word in words:
+                if len(word) <= 3:
+                    if re.search(r'\b' + re.escape(word) + r'\b', name):
+                        return canonical, 90
+                else:
+                    if word in name:
+                        return canonical, 90
 
         # ---------------- Sample Values ----------------
         values = series.dropna().astype(str).head(20).tolist()
@@ -416,7 +427,7 @@ class UniversalDatasetParser:
                 best_score = 999
                 for col in matching_cols:
                     orig_name = self.reverse_column_mapping.get(col, "")
-                    orig_clean = str(orig_name).lower().strip().replace("_", " ")
+                    orig_clean = re.sub(r"\s+", " ", str(orig_name)).lower().strip().replace("_", " ")
                     alias_list = aliases.get(canon_name, [])
                     try:
                         score = alias_list.index(orig_clean)
@@ -446,7 +457,18 @@ class UniversalDatasetParser:
                     clean_df[target_name] = ""
             
             # Filter and store only these 5 columns in the transactions list
-            transactions = clean_df.to_dict(orient="records")
+            raw_txs = clean_df.to_dict(orient="records")
+            transactions = []
+            for tx in raw_txs:
+                dt = str(tx.get("Date", "")).strip()
+                nr = str(tx.get("Narration", "")).strip()
+                if not dt or dt.lower() in ["nan", "nat", "date", "trans date", "value date", "posting date", "txn date"]:
+                    continue
+                if not nr or nr.lower() in ["nan", "narration", "description", "particulars", "remarks"]:
+                    continue
+                tx["Date"] = dt.replace("\n", "").replace(" ", "")
+                tx["Narration"] = re.sub(r"\s+", " ", nr).strip()
+                transactions.append(tx)
 
         self.document = {
             "source": {
@@ -507,7 +529,7 @@ class UniversalDatasetParser:
             best_score = 999
             for col in matching_cols:
                 orig_name = self.reverse_column_mapping.get(col, "")
-                orig_clean = str(orig_name).lower().strip().replace("_", " ")
+                orig_clean = re.sub(r"\s+", " ", str(orig_name)).lower().strip().replace("_", " ")
                 alias_list = aliases.get(canon_name, [])
                 try:
                     score = alias_list.index(orig_clean)
@@ -534,4 +556,21 @@ class UniversalDatasetParser:
                 clean_df[target_name] = series
             else:
                 clean_df[target_name] = ""
+                
+        # Filter rows
+        keep_indices = []
+        for idx, row in clean_df.iterrows():
+            dt = str(row.get("Date", "")).strip()
+            nr = str(row.get("Narration", "")).strip()
+            if not dt or dt.lower() in ["nan", "nat", "date", "trans date", "value date", "posting date", "txn date"]:
+                continue
+            if not nr or nr.lower() in ["nan", "narration", "description", "particulars", "remarks"]:
+                continue
+            keep_indices.append(idx)
+            
+        clean_df = clean_df.iloc[keep_indices].copy()
+        
+        # Clean columns
+        clean_df["Date"] = clean_df["Date"].apply(lambda x: str(x).strip().replace("\n", "").replace(" ", ""))
+        clean_df["Narration"] = clean_df["Narration"].apply(lambda x: re.sub(r"\s+", " ", str(x)).strip())
         return clean_df
