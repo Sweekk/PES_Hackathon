@@ -225,41 +225,48 @@ def process_real_data(results):
                     "description": f"Failed reversal candidate detected: Debit of Rs. {candidate['debit']['amount']} was reversed within {candidate['time_difference_days']} days (Reason: {candidate['reason_type']})."
                 })
                 
-    # Build Nodes and Edges for Graph
-    nodes = [{"id": "MAIN_ACC", "flagged": False}]
+    # Build Nodes and Edges for Graph using GraphEngine output if available
+    nodes = []
     edges = []
-    seen_nodes = {"MAIN_ACC"}
     
-    for tx in transactions:
-        desc = tx["description"]
-        amount = tx["debit"] or tx["credit"] or 0.0
-        
-        match = re.search(r"ACC_?\d+|[A-Z]{4}\d+", desc, re.IGNORECASE)
-        if match:
-            target_node = match.group(0).upper().replace(" ", "_")
-        else:
-            words = [w for w in re.split(r"[^a-zA-Z0-9]", desc) if len(w) > 3]
-            target_node = words[0].upper() if words else "UNKNOWN_ENTITY"
+    if "graph_data" in results:
+        g_data = results["graph_data"]
+        nodes = g_data.get("nodes", [])
+        edges = g_data.get("edges", [])
+    else:
+        # Fallback to legacy regex matching for mock/older results
+        nodes = [{"id": "MAIN_ACC", "flagged": False}]
+        seen_nodes = {"MAIN_ACC"}
+        for tx in transactions:
+            desc = tx["description"]
+            amount = tx["debit"] or tx["credit"] or 0.0
             
-        if target_node not in seen_nodes:
-            nodes.append({
-                "id": target_node,
-                "flagged": tx["flagged"]
-            })
-            seen_nodes.add(target_node)
-            
-        if tx["debit"]:
-            edges.append({
-                "from": "MAIN_ACC",
-                "to": target_node,
-                "amount": amount
-            })
-        else:
-            edges.append({
-                "from": target_node,
-                "to": "MAIN_ACC",
-                "amount": amount
-            })
+            match = re.search(r"ACC_?\d+|[A-Z]{4}\d+", desc, re.IGNORECASE)
+            if match:
+                target_node = match.group(0).upper().replace(" ", "_")
+            else:
+                words = [w for w in re.split(r"[^a-zA-Z0-9]", desc) if len(w) > 3]
+                target_node = words[0].upper() if words else "UNKNOWN_ENTITY"
+                
+            if target_node not in seen_nodes:
+                nodes.append({
+                    "id": target_node,
+                    "flagged": tx["flagged"]
+                })
+                seen_nodes.add(target_node)
+                
+            if tx["debit"]:
+                edges.append({
+                    "from": "MAIN_ACC",
+                    "to": target_node,
+                    "amount": amount
+                })
+            else:
+                edges.append({
+                    "from": target_node,
+                    "to": "MAIN_ACC",
+                    "amount": amount
+                })
             
     return transactions, fraud_findings, nodes, edges, flagged_count, total_debits, total_credits
 
@@ -334,34 +341,78 @@ with st.sidebar:
 # ==========================================================
 # HELPERS
 # ==========================================================
-def create_pyvis_graph(nodes, edges, height="500px"):
+def create_pyvis_graph(nodes, edges, height="500px", highlight_nodes=None, highlight_edges=None):
     net = Network(height=height, width="100%", bgcolor="#0F172A", font_color="#e2e8f0", directed=True)
+    
+    hl_nodes = set(highlight_nodes) if highlight_nodes else set()
+    hl_edges = set(highlight_edges) if highlight_edges else set()
+    has_highlight = len(hl_nodes) > 0 or len(hl_edges) > 0
+
     for node in nodes:
-        color = danger_color if node["flagged"] else accent_color
+        node_id = node["id"]
+        is_highlighted = node_id in hl_nodes
+        
+        if has_highlight:
+            if is_highlighted:
+                color = "#f59e0b"  # Gold for selected
+                size = 35
+            else:
+                color = "#334155"  # Slate for other nodes
+                size = 12
+        else:
+            color = danger_color if node["flagged"] else accent_color
+            size = 25 if node["flagged"] else 15
+            
         net.add_node(
-            node["id"],
-            label=node["id"],
-            title=f"Account: {node['id']}\nStatus: {'Flagged' if node['flagged'] else 'Normal'}",
+            node_id,
+            label=node_id,
+            title=f"Account: {node_id}\nStatus: {'Flagged' if node['flagged'] else 'Normal'}",
             color=color,
-            size=25 if node["flagged"] else 15
+            size=size
         )
+        
     for edge in edges:
+        edge_from = edge["from"]
+        edge_to = edge["to"]
+        is_edge_highlighted = (edge_from, edge_to) in hl_edges
+        
         width_val = max(1, min(10, int(edge["amount"] / 10000)))
+        
+        if has_highlight:
+            if is_edge_highlighted:
+                color = "#ef4444"  # Red for path/loop
+                width = 5
+            else:
+                color = "#1e293b"  # Dark for others
+                width = 1
+        else:
+            color = "#475569"
+            width = width_val
+            
         net.add_edge(
-            edge["from"],
-            edge["to"],
+            edge_from,
+            edge_to,
             title=f"Amount: Rs. {edge['amount']}",
             value=edge["amount"],
-            width=width_val,
-            color="#475569"
+            width=width,
+            color=color
         )
+        
     net.set_options("""
     var options = {
+      "nodes": {
+        "font": {
+          "size": 15,
+          "color": "#f8fafc",
+          "face": "monospace"
+        }
+      },
       "physics": {
         "barnesHut": {
-          "gravitationalConstant": -4000,
-          "centralGravity": 0.3,
-          "springLength": 95
+          "gravitationalConstant": -8000,
+          "centralGravity": 0.15,
+          "springLength": 220,
+          "avoidOverlap": 1
         },
         "minVelocity": 0.75
       }
@@ -574,12 +625,21 @@ if st.session_state.get("analyzed"):
         """, unsafe_allow_html=True)
         st.stop()
 
-    tab1, tab2, tab3 = st.tabs(["📊 Transaction Overview", "🕸️ Graph & Money Trail Analysis", "🤖 Ask Questions (LLM Chatbot)"])
-    
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("Navigation Portal")
+    page = st.sidebar.radio(
+        "Select Page:",
+        [
+            "📊 Dashboard & Overview",
+            "🕸️ Graph & Money Trail Analysis",
+            "🤖 Ask Questions (LLM Chatbot)"
+        ]
+    )
+
     # ------------------------------------------------------
-    # TAB 1: TRANSACTION OVERVIEW
+    # PAGE 1: DASHBOARD & OVERVIEW
     # ------------------------------------------------------
-    with tab1:
+    if page == "📊 Dashboard & Overview":
         st.header("Transaction Metrics Summary")
         
         if not transactions:
@@ -608,18 +668,21 @@ if st.session_state.get("analyzed"):
         with col_m4:
             st.metric("Closing Balance", f"Rs. {closing_balance:,.2f}")
         with col_m5:
-            st.metric("Flagged Items", flagged_count)
+            st.metric("Flagged Anomalies", flagged_count)
             
+        # Transaction Ledger Table
         st.markdown("---")
+        st.subheader("Statement Transactions Ledger")
         
-        # Filters
-        st.subheader("Filter Ledger")
-        col_f1, col_f2, col_f3 = st.columns(3)
+        col_f1, col_f2, col_f3, col_f4 = st.columns([2, 2, 2, 1])
         with col_f1:
-            date_filter = st.date_input("Date Range", [])
+            search_query = st.text_input("🔍 Search Description:", "")
         with col_f2:
-            type_filter = st.multiselect("Transaction Type", df_tx["type"].unique(), default=df_tx["type"].unique())
+            date_range = st.date_input("📅 Date Range Filter:", [])
         with col_f3:
+            type_filter = st.multiselect("Transaction Type", df_tx["type"].unique(), default=df_tx["type"].unique())
+        with col_f4:
+            st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
             flagged_only = st.toggle("Show Flagged Only")
             
         # Apply filters to Dataframe
@@ -628,6 +691,18 @@ if st.session_state.get("analyzed"):
             filtered_df = filtered_df[filtered_df["flagged"] == True]
         if type_filter:
             filtered_df = filtered_df[filtered_df["type"].isin(type_filter)]
+        if search_query:
+            filtered_df = filtered_df[filtered_df["description"].str.contains(search_query, case=False)]
+            
+        # Apply Date Range Filter safely
+        if not filtered_df.empty and isinstance(date_range, (list, tuple)) and len(date_range) > 0:
+            tx_dates = pd.to_datetime(filtered_df["date"], errors="coerce").dt.date
+            start_date = date_range[0]
+            if len(date_range) == 2:
+                end_date = date_range[1]
+                filtered_df = filtered_df[(tx_dates >= start_date) & (tx_dates <= end_date)]
+            else:
+                filtered_df = filtered_df[tx_dates >= start_date]
             
         # Colour coded rows using pandas styler
         def highlight_flagged(row):
@@ -642,7 +717,6 @@ if st.session_state.get("analyzed"):
         col_c1, col_c2 = st.columns(2)
         
         with col_c1:
-            # Bar Chart
             df_bar = df_tx.groupby("date")[["debit", "credit"]].sum().reset_index()
             fig_bar = px.bar(
                 df_bar, x="date", y=["debit", "credit"],
@@ -655,7 +729,6 @@ if st.session_state.get("analyzed"):
             st.plotly_chart(fig_bar, use_container_width=True)
             
         with col_c2:
-            # Pie Chart
             fig_pie = px.pie(
                 df_tx, names="type", values="balance",
                 title="Transaction Type Volume Distribution",
@@ -665,29 +738,108 @@ if st.session_state.get("analyzed"):
             fig_pie.update_layout(paper_bgcolor="#0F172A", font_color="#e2e8f0")
             st.plotly_chart(fig_pie, use_container_width=True)
 
-    # ------------------------------------------------------
-    # TAB 2: GRAPH & MONEY TRAIL ANALYSIS
-    # ------------------------------------------------------
-    with tab2:
-        st.header("Transaction Flows Network & Trail Mapping")
+        # ==========================================================
+        # SECTION 3: DOWNLOADABLE REPORT
+        # ==========================================================
+        st.markdown("---")
+        st.header("📋 Evidence Audit & Summary Export")
         
-        col_g1, col_g2 = st.columns([3, 2])
+        # Preview layout
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        col_r1, col_r2 = st.columns([3, 1])
         
-        with col_g1:
-            st.subheader("🌐 Interactive Transaction Graph")
-            # Render interactive PyVis Graph
-            graph_html_path = create_pyvis_graph(graph_nodes, graph_edges)
+        with col_r1:
+            st.subheader("Audit Executive Summary Preview")
+            st.write(exec_summary)
+            anomalies_list = list(set(f["type"] for f in fraud_findings))
+            st.markdown(f"**Anomalies Found:** {', '.join(anomalies_list) if anomalies_list else 'None'}")
+        with col_r2:
+            st.subheader("Risk Score")
+            badge_style = "badge-high" if risk_score == "HIGH" else "badge-low"
+            st.markdown(f'<h4><span class="badge {badge_style}" style="font-size: 1.2em; padding: 6px 20px;">{risk_score} RISK</span></h4>', unsafe_allow_html=True)
+            st.caption(f"Generated at: {datetime.now().strftime('%Y-%m-%d')}")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Download Button
+        pdf_bytes = generate_pdf_report(transactions, fraud_findings, risk_score, exec_summary)
+        st.download_button(
+            label="📥 Download Evidence Report (PDF)",
+            data=pdf_bytes,
+            file_name=f"BankLens_Report_{datetime.now().strftime('%Y-%m-%d')}.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+
+    # ------------------------------------------------------
+    # PAGE 2: GRAPH & MONEY TRAIL ANALYSIS
+    # ------------------------------------------------------
+    elif page == "🕸️ Graph & Money Trail Analysis":
+        col_header, col_toggle = st.columns([3, 1])
+        with col_header:
+            st.header("Transaction Flows Network & Trail Mapping")
+        with col_toggle:
+            fullscreen = st.toggle("🖥️ Full Screen Graph View", value=False)
+            
+        # Get cycles from session state results
+        g_cycles = []
+        if st.session_state.get("pipeline_results"):
+            g_cycles = st.session_state["pipeline_results"].get("graph_cycles", [])
+            
+        selected_cycle = None
+        filter_mode = "all"
+        
+        active_path = st.session_state.get("active_shortest_path")
+        if active_path:
+            st.info(f"📍 Currently showing traced path: **{' → '.join(active_path)}**")
+            if st.button("❌ Clear Path Filter"):
+                st.session_state["active_shortest_path"] = None
+                st.rerun()
+            filter_mode = "path"
+        elif g_cycles:
+            loop_options = ["Show All Transactions"] + [f"Loop #{i+1}: {' → '.join(c)} → {c[0]}" for i, c in enumerate(g_cycles)]
+            selected_loop_str = st.selectbox("🎯 Filter Graph View by Circular Loop:", loop_options, index=0)
+            if selected_loop_str != "Show All Transactions":
+                loop_idx = loop_options.index(selected_loop_str) - 1
+                selected_cycle = g_cycles[loop_idx]
+                filter_mode = "loop"
+
+        # Highlight nodes and edges based on the selected mode in the full graph
+        highlight_nodes = None
+        highlight_edges = None
+        
+        if filter_mode == "path" and active_path:
+            highlight_nodes = set(active_path)
+            
+            highlight_edges = set()
+            for i in range(len(active_path) - 1):
+                u = active_path[i]
+                v = active_path[i + 1]
+                highlight_edges.add((u, v))
+            
+        elif filter_mode == "loop" and selected_cycle:
+            highlight_nodes = set(selected_cycle)
+            
+            highlight_edges = set()
+            for i in range(len(selected_cycle)):
+                u = selected_cycle[i]
+                v = selected_cycle[(i + 1) % len(selected_cycle)]
+                highlight_edges.add((u, v))
+            
+        if fullscreen:
+            st.subheader("🌐 Interactive Transaction Graph (Full Screen)")
+            graph_html_path = create_pyvis_graph(graph_nodes, graph_edges, height="750px", highlight_nodes=highlight_nodes, highlight_edges=highlight_edges)
             with open(graph_html_path, "r", encoding="utf-8") as f:
                 html_content = f.read()
-            st.components.v1.html(html_content, height=520, scrolling=True)
+            st.components.v1.html(html_content, height=780, scrolling=True)
             
-        with col_g2:
+            st.markdown("---")
             st.subheader("🕵️ Money Trail Analysis")
-            
             if fraud_findings:
+                col_ff1, col_ff2 = st.columns(2)
                 for idx, finding in enumerate(fraud_findings):
+                    col_target = col_ff1 if idx % 2 == 0 else col_ff2
                     badge_class = "badge-high" if finding["severity"] == "HIGH" else ("badge-medium" if finding["severity"] == "MEDIUM" else "badge-low")
-                    st.markdown(f"""
+                    col_target.markdown(f"""
                     <div class="fraud-card">
                         <h4>⚠️ {finding['type']} <span class="badge {badge_class}">{finding['severity']}</span></h4>
                         <p><b>Accounts involved:</b> {', '.join(finding['accounts'])}</p>
@@ -697,11 +849,116 @@ if st.session_state.get("analyzed"):
                     """, unsafe_allow_html=True)
             else:
                 st.success("🎉 No suspicious patterns detected in transactions flow.")
+        else:
+            col_g1, col_g2 = st.columns([3, 2])
+            
+            with col_g1:
+                st.subheader("🌐 Interactive Transaction Graph")
+                # Render interactive PyVis Graph
+                graph_html_path = create_pyvis_graph(graph_nodes, graph_edges, highlight_nodes=highlight_nodes, highlight_edges=highlight_edges)
+                with open(graph_html_path, "r", encoding="utf-8") as f:
+                    html_content = f.read()
+                st.components.v1.html(html_content, height=520, scrolling=True)
+                
+            with col_g2:
+                st.subheader("🕵️ Money Trail Analysis")
+                
+                if fraud_findings:
+                    for idx, finding in enumerate(fraud_findings):
+                        badge_class = "badge-high" if finding["severity"] == "HIGH" else ("badge-medium" if finding["severity"] == "MEDIUM" else "badge-low")
+                        st.markdown(f"""
+                        <div class="fraud-card">
+                            <h4>⚠️ {finding['type']} <span class="badge {badge_class}">{finding['severity']}</span></h4>
+                            <p><b>Accounts involved:</b> {', '.join(finding['accounts'])}</p>
+                            <p><b>Transactions involved:</b> {', '.join(finding['transactions'])}</p>
+                            <p><i>{finding['description']}</i></p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                else:
+                    st.success("🎉 No suspicious patterns detected in transactions flow.")
+
+        if st.session_state.get("pipeline_results") and "graph_summary" in st.session_state["pipeline_results"]:
+            res = st.session_state["pipeline_results"]
+            g_summary = res["graph_summary"]
+            g_hubs = res["graph_hubs"]
+            g_cycles = res["graph_cycles"]
+            
+            st.markdown("---")
+            st.subheader("📊 Graph Network Diagnostics")
+            
+            col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+            with col_m1:
+                st.metric("Total Accounts (Nodes)", g_summary.get("num_nodes", 0))
+            with col_m2:
+                st.metric("Transaction Links (Edges)", g_summary.get("num_edges", 0))
+            with col_m3:
+                st.metric("Network Density", f"{g_summary.get('density', 0.0):.4f}")
+            with col_m4:
+                st.metric("Total Fund Volume", f"Rs. {g_summary.get('total_volume', 0.0):,.2f}")
+                
+            st.markdown("---")
+            col_d1, col_d2 = st.columns(2)
+            
+            with col_d1:
+                st.subheader("👑 Network Hub Accounts (Top Connections)")
+                hub_df = pd.DataFrame(g_hubs)
+                if not hub_df.empty:
+                    hub_df.columns = ["Account", "Total Degree", "In-Degree", "Out-Degree"]
+                    st.dataframe(hub_df, use_container_width=True)
+                else:
+                    st.caption("No hubs identified.")
+                    
+            with col_d2:
+                st.subheader("🔄 Circular Fund Flows (Round Trips)")
+                if g_cycles:
+                    for idx, cycle in enumerate(g_cycles, start=1):
+                        cycle_str = " → ".join(cycle) + f" → {cycle[0]}"
+                        st.error(f"**Loop #{idx}:** {cycle_str}")
+                else:
+                    st.success("🎉 No circular fund loops detected in transaction path.")
+
+            # ── Cash Flow Path Finder Card ──
+            st.markdown("---")
+            st.subheader("🕵️ Money Trail Path Finder")
+            st.markdown("Find the shortest cash flow trail/route between any two accounts in the transaction network.")
+            
+            node_ids = sorted(list(set(n["id"] for n in graph_nodes)))
+            
+            col_p1, col_p2, col_p3 = st.columns([2, 2, 1])
+            with col_p1:
+                src_acc = st.selectbox("Source Account:", node_ids, index=0 if len(node_ids) > 0 else None)
+            with col_p2:
+                dst_acc = st.selectbox("Target Account:", node_ids, index=min(1, len(node_ids)-1) if len(node_ids) > 1 else None)
+            with col_p3:
+                st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+                find_path_btn = st.button("🔍 Trace Path", use_container_width=True)
+                
+            if find_path_btn:
+                if src_acc == dst_acc:
+                    st.warning("⚠️ Source and Target accounts must be different.")
+                else:
+                    import networkx as nx
+                    G_p = nx.DiGraph()
+                    for edge in graph_edges:
+                        G_p.add_edge(edge["from"], edge["to"])
+                        
+                    if not G_p.has_node(src_acc) or not G_p.has_node(dst_acc):
+                        st.error(f"❌ One or both accounts do not have active transaction connections.")
+                    else:
+                        try:
+                            path = nx.shortest_path(G_p, src_acc, dst_acc)
+                            path_str = " → ".join(path)
+                            st.success(f"✅ **Money Trail Found:** {path_str}")
+                            st.session_state["active_shortest_path"] = path
+                            st.rerun()
+                        except nx.NetworkXNoPath:
+                            st.error(f"❌ **No cash flow path exists** from `{src_acc}` to `{dst_acc}`.")
+                            st.session_state["active_shortest_path"] = None
 
     # ------------------------------------------------------
-    # TAB 3: LLM CHATBOT
+    # PAGE 3: LLM CHATBOT
     # ------------------------------------------------------
-    with tab3:
+    elif page == "🤖 Ask Questions (LLM Chatbot)":
         st.header("Interactive Graph & Behavioral Chatbot")
         
         col_chat1, col_chat2 = st.columns([2, 3])
@@ -778,35 +1035,3 @@ if st.session_state.get("analyzed"):
                     "ref": "Interactive Node References"
                 })
                 st.rerun()
-
-    # ==========================================================
-    # SECTION 3: DOWNLOADABLE REPORT
-    # ==========================================================
-    st.markdown("---")
-    st.header("📋 Evidence Audit & Summary Export")
-    
-    # Preview layout
-    st.markdown('<div class="premium-card">', unsafe_allow_html=True)
-    col_r1, col_r2 = st.columns([3, 1])
-    
-    with col_r1:
-        st.subheader("Audit Executive Summary Preview")
-        st.write(exec_summary)
-        anomalies_list = list(set(f["type"] for f in fraud_findings))
-        st.markdown(f"**Anomalies Found:** {', '.join(anomalies_list) if anomalies_list else 'None'}")
-    with col_r2:
-        st.subheader("Risk Score")
-        badge_style = "badge-high" if risk_score == "HIGH" else "badge-low"
-        st.markdown(f'<h4><span class="badge {badge_style}" style="font-size: 1.2em; padding: 6px 20px;">{risk_score} RISK</span></h4>', unsafe_allow_html=True)
-        st.caption(f"Generated at: {datetime.now().strftime('%Y-%m-%d')}")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Download Button
-    pdf_bytes = generate_pdf_report(transactions, fraud_findings, risk_score, exec_summary)
-    st.download_button(
-        label="📥 Download Evidence Report (PDF)",
-        data=pdf_bytes,
-        file_name=f"BankLens_Report_{datetime.now().strftime('%Y-%m-%d')}.pdf",
-        mime="application/pdf",
-        use_container_width=True
-    )

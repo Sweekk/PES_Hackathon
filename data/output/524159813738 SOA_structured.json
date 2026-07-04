@@ -1,0 +1,408 @@
+[
+    {
+        "date": "2025-04-17 00:00:00",
+        "description": "UPI/100108454257/CR/SURE/UTIB/59072766@pthdfc/IP F",
+        "debit": "0.0",
+        "credit": "20000",
+        "balance": "20000"
+    },
+    {
+        "date": "2025-04-21 00:00:00",
+        "description": "UPI/511177002456/DR/ANIL/INDB/607299@naviaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "19990"
+    },
+    {
+        "date": "2025-04-22 00:00:00",
+        "description": "MasterCard Issuance Chrg 5256220220414100",
+        "debit": "293.82",
+        "credit": "0.0",
+        "balance": "19696.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/511387530934/DR/MS  /INDB/ravi@paytm",
+        "debit": "210",
+        "credit": "0.0",
+        "balance": "19486.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/511388857515/DR/TANV/INDB/kiran@ybl",
+        "debit": "18",
+        "credit": "0.0",
+        "balance": "19468.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/511389678520/DR/MANO/INDB/raje@okhdfcbank",
+        "debit": "15000",
+        "credit": "0.0",
+        "balance": "4468.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/511391523411/DR/NITI/INDB/48369681@ptaxis",
+        "debit": "30",
+        "credit": "0.0",
+        "balance": "4438.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/511392222964/DR/Anit/INDB/68525@okbizaxis",
+        "debit": "55",
+        "credit": "0.0",
+        "balance": "4383.18"
+    },
+    {
+        "date": "2025-04-23 00:00:00",
+        "description": "UPI/151063200470/CR/BHAV/BDBL/753926171-4@axl/Paym",
+        "debit": "0.0",
+        "credit": "10",
+        "balance": "4393.18"
+    },
+    {
+        "date": "2025-04-24 00:00:00",
+        "description": "UPI/511495559943/DR/ANIL/INDB/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "4383.18"
+    },
+    {
+        "date": "2025-04-24 00:00:00",
+        "description": "UPI/511495751298/DR/gaur/INDB/tmqr5d7pu6@ptys",
+        "debit": "210",
+        "credit": "0.0",
+        "balance": "4173.18"
+    },
+    {
+        "date": "2025-04-24 00:00:00",
+        "description": "UPI/511496616389/DR/SANJ/INDB/ashok@okicici",
+        "debit": "4000",
+        "credit": "0.0",
+        "balance": "173.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "UPI/511501950353/DR/ANIL/INDB/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "163.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "IMPS/P2A/511512318533/YESB/JK IMEDIA PRIVATE LIMIT",
+        "debit": "0.0",
+        "credit": "356668",
+        "balance": "356831.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "SELF",
+        "debit": "310000",
+        "credit": "0.0",
+        "balance": "46831.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "UPI/511502555026/DR/SURE/INDB/59072766@pthdfc",
+        "debit": "40000",
+        "credit": "0.0",
+        "balance": "6831.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "UPI/513278910268/DR/amit/INDB/le.rzp@rxairtel",
+        "debit": "100",
+        "credit": "0.0",
+        "balance": "6731.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "NFS CASH TXN/IN/GHANTAGHAR BRANCH BEHRBEHRAICH",
+        "debit": "6000",
+        "credit": "0.0",
+        "balance": "731.18"
+    },
+    {
+        "date": "2025-04-25 00:00:00",
+        "description": "UPI/511505586953/DR/DEEP/INDB/pradeep@ybl",
+        "debit": "30",
+        "credit": "0.0",
+        "balance": "701.18"
+    },
+    {
+        "date": "2025-04-27 00:00:00",
+        "description": "UPI/511712922894/DR/AARA/INDB/8596@freecharge",
+        "debit": "100",
+        "credit": "0.0",
+        "balance": "601.18"
+    },
+    {
+        "date": "2025-04-27 00:00:00",
+        "description": "UPI/511714493709/DR/PRIY/INDB/yash@ybl",
+        "debit": "200",
+        "credit": "0.0",
+        "balance": "401.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "UPI/511820800424/DR/ANIL/INDB/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "391.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "R/BDBLR62025042818267491/BDBL0001000/MsS PRINCE IN",
+        "debit": "0.0",
+        "credit": "492401",
+        "balance": "492792.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "SELF",
+        "debit": "450000",
+        "credit": "0.0",
+        "balance": "42792.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "22792.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "2792.18"
+    },
+    {
+        "date": "2025-04-28 00:00:00",
+        "description": "MC POS TXN AT IN/WWW AMAZON IN         BANGALORE",
+        "debit": "2000",
+        "credit": "0.0",
+        "balance": "792.18"
+    },
+    {
+        "date": "2025-05-01 00:00:00",
+        "description": "UPI/512139888907/DR/ANIL/INDB/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "782.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "UPI/512244038611/DR/ANIL/INDB/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "772.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "IMPS/P2A/512215326110/ICIC/SHIVAM SUPPLY & SERV",
+        "debit": "0.0",
+        "credit": "494076",
+        "balance": "494848.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "SELF",
+        "debit": "450000",
+        "credit": "0.0",
+        "balance": "44848.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "24848.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "4848.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "MC POS TXN AT IN/WWW AMAZON IN         BANGALORE",
+        "debit": "3500",
+        "credit": "0.0",
+        "balance": "1348.18"
+    },
+    {
+        "date": "2025-05-02 00:00:00",
+        "description": "UPI/512249536571/DR/YASH/INDB/komal@ybl",
+        "debit": "40",
+        "credit": "0.0",
+        "balance": "1308.18"
+    },
+    {
+        "date": "2025-05-03 00:00:00",
+        "description": "UPI/512352737176/CR/YASH/HDFC/92093904@pthdfc/NA",
+        "debit": "0.0",
+        "credit": "10",
+        "balance": "1318.18"
+    },
+    {
+        "date": "2025-05-03 00:00:00",
+        "description": "UPI/512353300736/DR/GEET/YESB/divya@ybl",
+        "debit": "460",
+        "credit": "0.0",
+        "balance": "858.18"
+    },
+    {
+        "date": "2025-05-03 00:00:00",
+        "description": "UPI/512353883231/DR/ANIL/UBIN/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "848.18"
+    },
+    {
+        "date": "2025-05-03 00:00:00",
+        "description": "UPI/512355590992/DR/YASH/HDFC/92093904@pthdfc",
+        "debit": "500",
+        "credit": "0.0",
+        "balance": "348.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "UPI/512564651128/CR/YASH/HDFC/92093904@pthdfc/NA",
+        "debit": "0.0",
+        "credit": "10",
+        "balance": "358.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "UPI/512564654813/DR/YASH/HDFC/92093904@pthdfc",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "348.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "UPI/512540751616/CR/YASH/HDFC/92093904@ptaxis/NA",
+        "debit": "0.0",
+        "credit": "50000",
+        "balance": "50348.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "30348.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "20000",
+        "credit": "0.0",
+        "balance": "10348.18"
+    },
+    {
+        "date": "2025-05-05 00:00:00",
+        "description": "ATM CASH TXN/INDUSIND BANK LIMITED BAHRAICH     UP",
+        "debit": "10000",
+        "credit": "0.0",
+        "balance": "348.18"
+    },
+    {
+        "date": "2025-05-06 00:00:00",
+        "description": "UPI/512671509354/DR/ANIL/UBIN/01607299@ptaxis",
+        "debit": "10",
+        "credit": "0.0",
+        "balance": "338.18"
+    },
+    {
+        "date": "2025-05-06 00:00:00",
+        "description": "R/IDFBR52025050600384381/IDFB0010204/SHRI RADHA JE",
+        "debit": "0.0",
+        "credit": "492401",
+        "balance": "492739.18"
+    },
+    {
+        "date": "2025-05-06 00:00:00",
+        "description": "FARIYAD AHMAD",
+        "debit": "480000",
+        "credit": "0.0",
+        "balance": "12739.18"
+    },
+    {
+        "date": "2025-05-06 00:00:00",
+        "description": "MC POS TXN AT IN/WWW AMAZON IN         BANGALORE",
+        "debit": "12000",
+        "credit": "0.0",
+        "balance": "739.18"
+    },
+    {
+        "date": "2025-05-07 00:00:00",
+        "description": "N/IDFBH25127622173/IDFB0010201/THE NAUTICX",
+        "debit": "0.0",
+        "credit": "3",
+        "balance": "742.18"
+    },
+    {
+        "date": "2025-05-07 00:00:00",
+        "description": "N/IDFBH25127798498/IDFB0010201/THE NAUTICX",
+        "debit": "0.0",
+        "credit": "2",
+        "balance": "744.18"
+    },
+    {
+        "date": "2025-05-08 00:00:00",
+        "description": "UPI/512883795359/DR/Shre/UTIB/571-1@okbizaxis",
+        "debit": "30",
+        "credit": "0.0",
+        "balance": "714.18"
+    },
+    {
+        "date": "2025-05-08 00:00:00",
+        "description": "UPI/512883814768/DR/AARA/IOBA/karan@okicici",
+        "debit": "3",
+        "credit": "0.0",
+        "balance": "711.18"
+    },
+    {
+        "date": "2025-05-08 00:00:00",
+        "description": "UPI/512884916360/DR/Amit/YESB0PTMUPI/aybil3066@ptybl",
+        "debit": "22",
+        "credit": "0.0",
+        "balance": "689.18"
+    },
+    {
+        "date": "2025-05-11 00:00:00",
+        "description": "UPI/513103260064/DR/Mr  /YESB/deepa@ybl",
+        "debit": "300",
+        "credit": "0.0",
+        "balance": "389.18"
+    },
+    {
+        "date": "2025-06-30 00:00:00",
+        "description": "524159813738:Int.Pd:17-04-2025 to 30-06-2025",
+        "debit": "0.0",
+        "credit": "13",
+        "balance": "402.18"
+    },
+    {
+        "date": "2025-09-01 00:00:00",
+        "description": "UPI/615287522588/CR/ADIT/UBIN/506201039-3@axl/Paym",
+        "debit": "0.0",
+        "credit": "10",
+        "balance": "412.18"
+    },
+    {
+        "date": "2025-09-30 00:00:00",
+        "description": "524159813738:Int.Pd:01-07-2025 to 30-09-2025",
+        "debit": "0.0",
+        "credit": "3",
+        "balance": "415.18"
+    }
+]
