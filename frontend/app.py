@@ -18,13 +18,13 @@ import ollama
 from datetime import datetime
 
 # ==========================================================
-# PAGE CONFIGURATION
+# PAGE CONFIGURATION & STYLING
 # ==========================================================
 st.set_page_config(
     page_title="BankLens AI — Automated Bank Statement Analysis",
     page_icon="🔍",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Custom color variables for styling
@@ -34,9 +34,21 @@ danger_color = "#991B1B"
 success_color = "#065F46"
 bg_color = "#0F172A"
 
-# Inject Custom Styles
+# Static configuration variables (previously in sidebar)
+sensitivity = "Medium"
+use_chandra = False
+chandra_url = "http://localhost:8000/v1"
+backend_url = "http://localhost:8000"
+
+# Inject Custom Styles to hide the sidebar completely
 st.markdown(f"""
 <style>
+    [data-testid="stSidebar"] {{
+        display: none !important;
+    }}
+    [data-testid="stSidebarCollapsedControl"] {{
+        display: none !important;
+    }}
     .stApp {{
         background-color: {bg_color};
         color: #e2e8f0;
@@ -123,11 +135,42 @@ mock_graph_edges = [
     {"from": "ACC_101", "to": "SWIGGY",  "amount": 450},
 ]
 
+mock_money_trails = [
+    {
+        "credit_id": "CREDIT_001",
+        "credit_date": "2024-01-02",
+        "credit_description": "NEFT/Salary",
+        "credit_amount": 85000.0,
+        "balance_before_credit": 12000.0,
+        "balance_after_credit": 97000.0,
+        "amount_tracked": 85000.0,
+        "remaining_unspent": 0.0,
+        "status": "Fully Spent",
+        "debit_transactions": [
+            {
+                "date": "2024-01-03",
+                "description": "UPI/Transfer/ACC202",
+                "debit_amount": 49500.0,
+                "allocated_amount": 49500.0,
+                "balance_after_debit": 47500.0
+            },
+            {
+                "date": "2024-01-03",
+                "description": "UPI/Transfer/ACC303",
+                "debit_amount": 48900.0,
+                "allocated_amount": 35500.0,
+                "balance_after_debit": -1400.0
+            }
+        ]
+    }
+]
+
 import re
 
 def process_real_data(results):
     dataframe_list = results.get("dataframe", [])
     audit_res = results.get("audit_results", [])
+    money_trails = []
     
     dup_keys = set()
     failed_keys = set()
@@ -207,6 +250,10 @@ def process_real_data(results):
     # Build Fraud Findings list
     fraud_findings = []
     for file_res in audit_res:
+        for trail in file_res.get("money_trails", []):
+            trail["source_file"] = file_res.get("filename", "")
+            money_trails.append(trail)
+
         if file_res.get("duplicate_count", 0) > 0:
             fraud_findings.append({
                 "type": "Structuring",
@@ -268,17 +315,18 @@ def process_real_data(results):
                     "amount": amount
                 })
             
-    return transactions, fraud_findings, nodes, edges, flagged_count, total_debits, total_credits
+    return transactions, fraud_findings, money_trails, nodes, edges, flagged_count, total_debits, total_credits
 
 # Check if real data is available in session state
 if st.session_state.get("pipeline_results"):
     res = st.session_state["pipeline_results"]
-    transactions, fraud_findings, graph_nodes, graph_edges, flagged_count, total_debits, total_credits = process_real_data(res)
+    transactions, fraud_findings, money_trails, graph_nodes, graph_edges, flagged_count, total_debits, total_credits = process_real_data(res)
     exec_summary = res.get("report_content", "Analysis report compile pending.")
     risk_score = "HIGH" if flagged_count > 0 else "LOW"
 else:
     transactions = mock_transactions
     fraud_findings = mock_fraud_findings
+    money_trails = mock_money_trails
     graph_nodes = mock_graph_nodes
     graph_edges = mock_graph_edges
     flagged_count = sum(1 for tx in transactions if tx.get("flagged"))
@@ -627,13 +675,23 @@ if st.session_state.get("analyzed"):
 
     st.sidebar.markdown("---")
     st.sidebar.subheader("Navigation Portal")
+    
+    # Intercept and set nav_page state before radio widget instantiation
+    if "target_nav_page" in st.session_state and st.session_state["target_nav_page"] is not None:
+        st.session_state["nav_page"] = st.session_state["target_nav_page"]
+        st.session_state["target_nav_page"] = None
+        
+    if "nav_page" not in st.session_state:
+        st.session_state["nav_page"] = "📊 Dashboard & Overview"
+        
     page = st.sidebar.radio(
         "Select Page:",
         [
             "📊 Dashboard & Overview",
             "🕸️ Graph & Money Trail Analysis",
             "🤖 Ask Questions (LLM Chatbot)"
-        ]
+        ],
+        key="nav_page"
     )
 
     # ------------------------------------------------------
@@ -641,6 +699,19 @@ if st.session_state.get("analyzed"):
     # ------------------------------------------------------
     if page == "📊 Dashboard & Overview":
         st.header("Transaction Metrics Summary")
+        
+        # Navigation Shortcut Buttons
+        col_nav1, col_nav2 = st.columns(2)
+        with col_nav1:
+            if st.button("🕸️ View Interactive Graph & Money Trail Analysis Page", use_container_width=True):
+                st.session_state["target_nav_page"] = "🕸️ Graph & Money Trail Analysis"
+                st.rerun()
+        with col_nav2:
+            if st.button("🤖 Ask Questions to LLM Chatbot Page", use_container_width=True):
+                st.session_state["target_nav_page"] = "🤖 Ask Questions (LLM Chatbot)"
+                st.rerun()
+        
+        st.markdown("---")
         
         if not transactions:
             st.warning("⚠️ No transaction records were found or extracted from the uploaded statement. Please check the file format or verify that the backend is running properly.")
@@ -774,9 +845,13 @@ if st.session_state.get("analyzed"):
     # PAGE 2: GRAPH & MONEY TRAIL ANALYSIS
     # ------------------------------------------------------
     elif page == "🕸️ Graph & Money Trail Analysis":
-        col_header, col_toggle = st.columns([3, 1])
+        col_header, col_back, col_toggle = st.columns([3, 1, 1])
         with col_header:
             st.header("Transaction Flows Network & Trail Mapping")
+        with col_back:
+            if st.button("⬅️ Back to Dashboard", use_container_width=True):
+                st.session_state["target_nav_page"] = "📊 Dashboard & Overview"
+                st.rerun()
         with col_toggle:
             fullscreen = st.toggle("🖥️ Full Screen Graph View", value=False)
             
@@ -802,6 +877,14 @@ if st.session_state.get("analyzed"):
                 loop_idx = loop_options.index(selected_loop_str) - 1
                 selected_cycle = g_cycles[loop_idx]
                 filter_mode = "loop"
+
+        # Select target credit flow to trace
+        selected_trail = None
+        if money_trails:
+            trail_options = [f"{t.get('credit_id', 'Credit Flow')} (Rs. {float(t.get('credit_amount') or 0.0):,.2f} on {t.get('credit_date', '')})" for t in money_trails]
+            selected_trail_str = st.selectbox("🕵️ Select Credit Inflow to Trace:", trail_options)
+            selected_trail_idx = trail_options.index(selected_trail_str)
+            selected_trail = money_trails[selected_trail_idx]
 
         # Highlight nodes and edges based on the selected mode in the full graph
         highlight_nodes = None
@@ -834,7 +917,47 @@ if st.session_state.get("analyzed"):
             
             st.markdown("---")
             st.subheader("🕵️ Money Trail Analysis")
+            if selected_trail:
+                trail = selected_trail
+                status = trail.get("status", "Open")
+                badge_class = "badge-medium" if status == "Fully Spent" else "badge-low"
+                credit_amount = float(trail.get("credit_amount") or 0.0)
+                tracked_amount = float(trail.get("amount_tracked") or 0.0)
+                remaining_amount = float(trail.get("remaining_unspent") or 0.0)
+                progress_value = min(1.0, tracked_amount / credit_amount) if credit_amount else 0.0
+
+                st.markdown(f"""
+                <div class="fraud-card">
+                    <h4>{trail.get('credit_id', 'Credit Flow')} <span class="badge {badge_class}">{status}</span></h4>
+                    <p><b>Credit:</b> Rs. {credit_amount:,.2f} on {trail.get('credit_date', '')}</p>
+                    <p><b>Source:</b> {trail.get('credit_description', 'Unknown')}</p>
+                    <p><b>Balance before credit:</b> Rs. {float(trail.get('balance_before_credit') or 0.0):,.2f}</p>
+                    <p><b>Balance after credit:</b> Rs. {float(trail.get('balance_after_credit') or 0.0):,.2f}</p>
+                    <p><b>Tracked debits:</b> Rs. {tracked_amount:,.2f} | <b>Remaining:</b> Rs. {remaining_amount:,.2f}</p>
+                </div>
+                """, unsafe_allow_html=True)
+                st.progress(progress_value)
+
+                debit_rows = []
+                for debit in trail.get("debit_transactions", []):
+                    debit_rows.append({
+                        "date": debit.get("date", ""),
+                        "description": debit.get("description", ""),
+                        "debit_amount": debit.get("debit_amount", 0.0),
+                        "allocated_from_credit": debit.get("allocated_amount", 0.0),
+                        "balance_after_debit": debit.get("balance_after_debit", 0.0)
+                    })
+
+                if debit_rows:
+                    st.dataframe(pd.DataFrame(debit_rows), use_container_width=True, hide_index=True)
+                else:
+                    st.info("This credit has not yet been consumed by later debit transactions.")
+            else:
+                st.info("No credit inflows were available to trace in the parsed statement.")
+
             if fraud_findings:
+                st.markdown("---")
+                st.subheader("Audit Findings")
                 col_ff1, col_ff2 = st.columns(2)
                 for idx, finding in enumerate(fraud_findings):
                     col_target = col_ff1 if idx % 2 == 0 else col_ff2
@@ -863,7 +986,47 @@ if st.session_state.get("analyzed"):
             with col_g2:
                 st.subheader("🕵️ Money Trail Analysis")
                 
+                if selected_trail:
+                    trail = selected_trail
+                    status = trail.get("status", "Open")
+                    badge_class = "badge-medium" if status == "Fully Spent" else "badge-low"
+                    credit_amount = float(trail.get("credit_amount") or 0.0)
+                    tracked_amount = float(trail.get("amount_tracked") or 0.0)
+                    remaining_amount = float(trail.get("remaining_unspent") or 0.0)
+                    progress_value = min(1.0, tracked_amount / credit_amount) if credit_amount else 0.0
+
+                    st.markdown(f"""
+                    <div class="fraud-card">
+                        <h4>{trail.get('credit_id', 'Credit Flow')} <span class="badge {badge_class}">{status}</span></h4>
+                        <p><b>Credit:</b> Rs. {credit_amount:,.2f} on {trail.get('credit_date', '')}</p>
+                        <p><b>Source:</b> {trail.get('credit_description', 'Unknown')}</p>
+                        <p><b>Balance before credit:</b> Rs. {float(trail.get('balance_before_credit') or 0.0):,.2f}</p>
+                        <p><b>Balance after credit:</b> Rs. {float(trail.get('balance_after_credit') or 0.0):,.2f}</p>
+                        <p><b>Tracked debits:</b> Rs. {tracked_amount:,.2f} | <b>Remaining:</b> Rs. {remaining_amount:,.2f}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    st.progress(progress_value)
+
+                    debit_rows = []
+                    for debit in trail.get("debit_transactions", []):
+                        debit_rows.append({
+                            "date": debit.get("date", ""),
+                            "description": debit.get("description", ""),
+                            "debit_amount": debit.get("debit_amount", 0.0),
+                            "allocated_from_credit": debit.get("allocated_amount", 0.0),
+                            "balance_after_debit": debit.get("balance_after_debit", 0.0)
+                        })
+
+                    if debit_rows:
+                        st.dataframe(pd.DataFrame(debit_rows), use_container_width=True, hide_index=True)
+                    else:
+                        st.info("This credit has not yet been consumed.")
+                else:
+                    st.info("No credit inflows to trace.")
+                
                 if fraud_findings:
+                    st.markdown("---")
+                    st.subheader("Audit Findings")
                     for idx, finding in enumerate(fraud_findings):
                         badge_class = "badge-high" if finding["severity"] == "HIGH" else ("badge-medium" if finding["severity"] == "MEDIUM" else "badge-low")
                         st.markdown(f"""
