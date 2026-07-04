@@ -34,15 +34,32 @@ class UniversalDatasetParser:
         self.normalize_transactions()
 
     # -----------------------------------------------------
+    # PDF Table Helper
+    # -----------------------------------------------------
+    def is_valid_transaction_header(self, headers):
+        headers_clean = [str(h).lower().strip() for h in headers if h is not None]
+        has_date = any("date" in h or "dt" in h or h == "day" for h in headers_clean)
+        has_desc = any("desc" in h or "narr" in h or "particular" in h or "remark" in h or "detail" in h for h in headers_clean)
+        has_amount = any(
+            any(k in h for k in ["debit", "credit", "amount", "withdrawal", "deposit", "bal", "dr", "cr"])
+            for h in headers_clean
+        )
+        return has_date and has_desc and has_amount
+
+    # -----------------------------------------------------
     # PDF
     # -----------------------------------------------------
     def parse_pdf(self):
         print("\nReading PDF...")
+        canonical_headers = None
+        canonical_col_count = None
+        self.tables = []
+        
         with pdfplumber.open(self.file_path) as pdf:
             self.metadata["pages"] = len(pdf.pages)
             self.metadata["filetype"] = "PDF"
             self.metadata["filename"] = os.path.basename(self.file_path)
-
+            
             for page_no, page in enumerate(pdf.pages, start=1):
                 # -------- TEXT --------
                 text = page.extract_text()
@@ -51,18 +68,37 @@ class UniversalDatasetParser:
                         "page": page_no,
                         "content": text
                     })
-
+                
                 # -------- TABLES --------
                 extracted_tables = page.extract_tables()
                 if extracted_tables:
                     for table in extracted_tables:
-                        if len(table) < 2:
+                        if len(table) < 1:
                             continue
-                        header = table[0]
-                        rows = table[1:]
-                        df = pd.DataFrame(rows, columns=header)
-                        self.tables.append(df)
-
+                            
+                        # Search for transaction header in this table
+                        header_row_idx = None
+                        for idx, row in enumerate(table):
+                            if self.is_valid_transaction_header(row):
+                                header_row_idx = idx
+                                break
+                                
+                        if header_row_idx is not None:
+                            headers = [str(h).strip() for h in table[header_row_idx]]
+                            rows = table[header_row_idx + 1:]
+                            df = pd.DataFrame(rows, columns=headers)
+                            
+                            # Update our canonical schema
+                            canonical_headers = headers
+                            canonical_col_count = len(headers)
+                            
+                            self.tables.append(df)
+                        else:
+                            # Continuation page table check
+                            if canonical_col_count is not None and len(table[0]) == canonical_col_count:
+                                df = pd.DataFrame(table, columns=canonical_headers)
+                                self.tables.append(df)
+                                
         if self.tables:
             self.transactions = pd.concat(self.tables, ignore_index=True)
 
@@ -228,10 +264,10 @@ class UniversalDatasetParser:
                 "tran particular", "tran particulars", "transaction particulars", "tran rmks", "tran remarks"
             ],
             "debit": [
-                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount","Dr_Amt"
+                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount", "dr amt"
             ],
             "credit": [
-                "credit", "deposit", "cr", "credit amount", "deposit amount","Cr_Amt"
+                "credit", "deposit", "cr", "credit amount", "deposit amount", "cr amt"
             ],
             "balance": [
                 "balance", "closing balance", "available balance", "balance amount"
@@ -244,7 +280,7 @@ class UniversalDatasetParser:
                 "chq no", "cheque no", "cheque number", "check no"
             ],
             "batch_number": [
-                "batch no", "batch number", "batch", "ctr batch no", "ctr batch number", "batch_no"
+                "batch no", "batch number", "batch", "ctr batch no", "ctr batch number"
             ],
             "account_number": [
                 "account number", "a/c number", "account no"
@@ -369,6 +405,65 @@ class UniversalDatasetParser:
         print("\nSchema inference complete.\n")
 
     # -----------------------------------------------------
+    # Clean and Filter Parsed Dataframe Rows
+    # -----------------------------------------------------
+    def clean_parsed_dataframe(self, df):
+        if df.empty:
+            return df
+        
+        df = df.copy()
+        
+        # Ensure all columns exist
+        for col in ["Date", "Narration", "Debit", "Credit", "Balance"]:
+            if col not in df.columns:
+                df[col] = ""
+                
+        # Clean text values
+        for col in ["Date", "Narration", "Debit", "Credit", "Balance"]:
+            df[col] = df[col].astype(str).str.strip()
+            
+        df["Date"] = df["Date"].replace(["nan", "NaN", "None", "NaT"], "")
+        df["Narration"] = df["Narration"].replace(["nan", "NaN", "None"], "")
+        df["Debit"] = df["Debit"].replace(["nan", "NaN", "None", "0.0", "0", "0.00"], "")
+        df["Credit"] = df["Credit"].replace(["nan", "NaN", "None", "0.0", "0", "0.00"], "")
+        df["Balance"] = df["Balance"].replace(["nan", "NaN", "None"], "")
+        
+        # Drop rows that are headers
+        header_keywords = {"date", "tran date", "trans date", "transaction date", "value date", "post date", "posting date", "dt", "txn date", "posting dt", "value dt"}
+        is_header = df["Date"].str.lower().isin(header_keywords) | df["Narration"].str.lower().isin(header_keywords)
+        df = df[~is_header].reset_index(drop=True)
+        
+        if df.empty:
+            return df
+            
+        merged_rows = []
+        for idx, row in df.iterrows():
+            # Check if it is a continuation row:
+            is_empty_date = row["Date"] == ""
+            is_empty_amount = row["Debit"] == "" and row["Credit"] == ""
+            
+            # If it's a summary/metadata row, skip it
+            summary_keywords = ["total", "brought forward", "carried forward", "b/f", "c/f", "page total", "sub total", "grand total", "bal b/f", "bal c/f", "balance b/f", "balance c/f", "opening balance", "opening bal", "closing balance", "closing bal"]
+            is_summary = any(kw in row["Narration"].lower() for kw in summary_keywords)
+            
+            if is_summary:
+                continue
+                
+            if is_empty_date and is_empty_amount and row["Narration"] != "":
+                # Append narration to previous row if exists
+                if merged_rows:
+                    merged_rows[-1]["Narration"] = (merged_rows[-1]["Narration"] + " " + row["Narration"]).strip()
+                continue
+            elif is_empty_date and is_empty_amount and row["Narration"] == "":
+                # Completely empty row, skip it
+                continue
+                
+            # Normal row, append to list
+            merged_rows.append(row.to_dict())
+            
+        return pd.DataFrame(merged_rows)
+
+    # -----------------------------------------------------
     # Build Final Document
     # -----------------------------------------------------
     def build_document(self):
@@ -429,6 +524,9 @@ class UniversalDatasetParser:
                     clean_df[target_name] = series
                 else:
                     clean_df[target_name] = ""
+            
+            # Clean and filter dataframe rows
+            clean_df = self.clean_parsed_dataframe(clean_df)
             
             # Filter and store only these 5 columns in the transactions list
             transactions = clean_df.to_dict(orient="records")
@@ -519,4 +617,7 @@ class UniversalDatasetParser:
                 clean_df[target_name] = series
             else:
                 clean_df[target_name] = ""
+        
+        # Clean and filter dataframe rows
+        clean_df = self.clean_parsed_dataframe(clean_df)
         return clean_df
