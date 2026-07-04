@@ -4,6 +4,7 @@ import json
 import re
 import urllib.request
 from datetime import datetime
+from collections import deque
 
 def call_llama(prompt, model_name="llama3.1:8b"):
     url = "http://localhost:11434/api/generate"
@@ -38,6 +39,138 @@ def parse_date(date_str):
             pass
     return None
 
+def parse_amount(value):
+    if value in ("", None):
+        return 0.0
+    if isinstance(value, (int, float)):
+        return float(value)
+
+    clean_value = str(value).strip()
+    if not clean_value or clean_value.lower() in ("nan", "none", "null"):
+        return 0.0
+
+    is_negative = False
+    if clean_value.startswith("(") and clean_value.endswith(")"):
+        is_negative = True
+        clean_value = clean_value[1:-1]
+
+    clean_value = re.sub(r"(?i)\b(rs\.?|inr|dr|cr)\b", "", clean_value)
+    clean_value = clean_value.replace(",", "").strip()
+    clean_value = re.sub(r"[^0-9.\-]", "", clean_value)
+
+    try:
+        amount = float(clean_value)
+    except ValueError:
+        return 0.0
+
+    if is_negative:
+        amount = -abs(amount)
+    return abs(amount)
+
+def get_first_value(tx, keys, default=""):
+    for key in keys:
+        value = tx.get(key)
+        if value not in ("", None):
+            return value
+    return default
+
+def normalize_tx_info(tx, index):
+    debit_val = parse_amount(get_first_value(tx, ("Debit", "debit", "DEBIT"), 0.0))
+    credit_val = parse_amount(get_first_value(tx, ("Credit", "credit", "CREDIT"), 0.0))
+    balance_val = parse_amount(get_first_value(tx, ("Balance", "balance", "BALANCE"), 0.0))
+    tx_date_str = get_first_value(tx, ("Date", "date", "TXN DT", "Txn Date", "Post Date"), "")
+    tx_desc = get_first_value(tx, ("Narration", "description", "Description", "NARRATION"), "")
+    ref_no = get_first_value(tx, ("ChequeNo/Reference No", "REF TXN NO", "REF CHQ NO", "reference"), "")
+
+    return {
+        "index": index,
+        "date": tx_date_str,
+        "desc": tx_desc,
+        "from": tx.get("from_account", ""),
+        "to": tx.get("to_account", ""),
+        "ref_no": ref_no,
+        "debit": debit_val,
+        "credit": credit_val,
+        "balance": balance_val,
+        "raw": tx
+    }
+
+def analyze_money_trails(cleaned_txs):
+    """
+    Tracks how received credits are consumed by later debits.
+
+    Credits enter a FIFO queue. Every debit is allocated to the oldest unspent
+    credit buckets first, so multiple credits are traced without double-counting.
+    A credit is fully traced when debits assigned to it equal the credit amount,
+    which is the point where the credited amount has been spent and the ledger
+    has effectively returned to the pre-credit balance for that inflow.
+    """
+    credit_queue = deque()
+    trails = []
+
+    for index, tx in enumerate(cleaned_txs):
+        tx_info = normalize_tx_info(tx, index)
+
+        if tx_info["credit"] > 0:
+            credit_amount = tx_info["credit"]
+            balance_after_credit = tx_info["balance"]
+            previous_balance = balance_after_credit - credit_amount
+            trail = {
+                "credit_id": f"CREDIT_{len(trails) + 1:03d}",
+                "credit_index": index,
+                "credit_date": tx_info["date"],
+                "credit_description": tx_info["desc"],
+                "credit_reference": tx_info["ref_no"],
+                "credit_amount": round(credit_amount, 2),
+                "balance_before_credit": round(previous_balance, 2),
+                "balance_after_credit": round(balance_after_credit, 2),
+                "amount_tracked": 0.0,
+                "remaining_unspent": round(credit_amount, 2),
+                "status": "Open",
+                "debit_transactions": []
+            }
+            trails.append(trail)
+            credit_queue.append({
+                "trail_index": len(trails) - 1,
+                "remaining": credit_amount
+            })
+            continue
+
+        if tx_info["debit"] <= 0:
+            continue
+
+        debit_remaining = tx_info["debit"]
+        while debit_remaining > 0 and credit_queue:
+            bucket = credit_queue[0]
+            allocation = min(debit_remaining, bucket["remaining"])
+            trail = trails[bucket["trail_index"]]
+
+            trail["debit_transactions"].append({
+                "debit_index": index,
+                "date": tx_info["date"],
+                "description": tx_info["desc"],
+                "reference": tx_info["ref_no"],
+                "debit_amount": round(tx_info["debit"], 2),
+                "allocated_amount": round(allocation, 2),
+                "balance_after_debit": round(tx_info["balance"], 2),
+                "to_account": tx_info["to"],
+                "raw": tx_info["raw"]
+            })
+
+            bucket["remaining"] -= allocation
+            debit_remaining -= allocation
+            trail["amount_tracked"] = round(trail["amount_tracked"] + allocation, 2)
+            trail["remaining_unspent"] = round(max(0.0, bucket["remaining"]), 2)
+
+            if bucket["remaining"] <= 0.005:
+                trail["status"] = "Fully Spent"
+                trail["remaining_unspent"] = 0.0
+                credit_queue.popleft()
+            else:
+                credit_queue[0] = bucket
+
+    return trails
+
 def analyze_statement_file(fpath, cleaned_dir):
     filename = os.path.basename(fpath)
     with open(fpath, 'r', encoding='utf-8') as f:
@@ -60,14 +193,14 @@ def analyze_statement_file(fpath, cleaned_dir):
     for tx in transactions:
         # Standardize transaction keys (checking both capitalized and lowercase names)
         tx_key = (
-            tx.get("Date") or tx.get("date") or tx.get("TXN DT") or tx.get("Txn Date") or "",
-            tx.get("Debit") or tx.get("debit") or tx.get("DEBIT") or 0.0,
-            tx.get("Credit") or tx.get("credit") or tx.get("CREDIT") or 0.0,
-            tx.get("Balance") or tx.get("balance") or tx.get("BALANCE") or 0.0,
-            tx.get("Narration") or tx.get("description") or tx.get("Description") or tx.get("NARRATION") or "",
-            tx.get("from_account") or "",
-            tx.get("to_account") or "",
-            tx.get("ChequeNo/Reference No") or tx.get("REF TXN NO") or tx.get("REF CHQ NO") or tx.get("reference") or ""
+            get_first_value(tx, ("Date", "date", "TXN DT", "Txn Date"), ""),
+            parse_amount(get_first_value(tx, ("Debit", "debit", "DEBIT"), 0.0)),
+            parse_amount(get_first_value(tx, ("Credit", "credit", "CREDIT"), 0.0)),
+            parse_amount(get_first_value(tx, ("Balance", "balance", "BALANCE"), 0.0)),
+            get_first_value(tx, ("Narration", "description", "Description", "NARRATION"), ""),
+            tx.get("from_account", ""),
+            tx.get("to_account", ""),
+            get_first_value(tx, ("ChequeNo/Reference No", "REF TXN NO", "REF CHQ NO", "reference"), "")
         )
         if tx_key in seen:
             duplicates.append(tx)
@@ -85,34 +218,19 @@ def analyze_statement_file(fpath, cleaned_dir):
     debits = []
     credits = []
     for tx in cleaned_txs:
-        # Check debit value
-        debit_val = 0.0
-        for k in ("Debit", "debit", "DEBIT", "Debit"):
-            if k in tx and tx[k] not in ("", None):
-                try:
-                    debit_val = float(tx[k])
-                except ValueError:
-                    pass
-        
-        # Check credit value
-        credit_val = 0.0
-        for k in ("Credit", "credit", "CREDIT", "Credit"):
-            if k in tx and tx[k] not in ("", None):
-                try:
-                    credit_val = float(tx[k])
-                except ValueError:
-                    pass
-                    
-        tx_date_str = tx.get("Date") or tx.get("date") or tx.get("TXN DT") or tx.get("Txn Date") or tx.get("Post Date") or ""
-        tx_desc = tx.get("Narration") or tx.get("description") or tx.get("Description") or tx.get("NARRATION") or ""
+        tx_info_norm = normalize_tx_info(tx, len(debits) + len(credits))
+        debit_val = tx_info_norm["debit"]
+        credit_val = tx_info_norm["credit"]
+        tx_date_str = tx_info_norm["date"]
+        tx_desc = tx_info_norm["desc"]
         
         tx_info = {
             "date": tx_date_str,
             "desc": tx_desc,
-            "from": tx.get("from_account", ""),
-            "to": tx.get("to_account", ""),
-            "ref_no": tx.get("ChequeNo/Reference No") or tx.get("REF TXN NO") or tx.get("REF CHQ NO") or tx.get("reference") or "",
-            "balance": tx.get("Balance") or tx.get("balance") or tx.get("BALANCE") or 0.0,
+            "from": tx_info_norm["from"],
+            "to": tx_info_norm["to"],
+            "ref_no": tx_info_norm["ref_no"],
+            "balance": tx_info_norm["balance"],
             "raw": tx
         }
         
@@ -167,6 +285,8 @@ def analyze_statement_file(fpath, cleaned_dir):
                     matched_credits.add(idx)
                     break
 
+    money_trails = analyze_money_trails(cleaned_txs)
+
     return {
         "filename": filename,
         "total_before": len(transactions),
@@ -174,7 +294,8 @@ def analyze_statement_file(fpath, cleaned_dir):
         "duplicate_count": len(duplicates),
         "duplicates": duplicates[:10],
         "failed_count": len(failed_candidates),
-        "failed_candidates": failed_candidates
+        "failed_candidates": failed_candidates,
+        "money_trails": money_trails
     }
 
 def generate_report(json_files, cleaned_dir, report_path, model_name="llama3.1:8b"):

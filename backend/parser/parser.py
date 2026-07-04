@@ -60,7 +60,22 @@ class UniversalDatasetParser:
                             continue
                         header = table[0]
                         rows = table[1:]
-                        df = pd.DataFrame(rows, columns=header)
+                        
+                        # Deduplicate headers
+                        seen_headers = {}
+                        new_header = []
+                        for idx, h in enumerate(header):
+                            h_str = str(h).strip() if h is not None else f"Col_{idx}"
+                            if not h_str or h_str.lower() in ["nan", "nat"]:
+                                h_str = f"Col_{idx}"
+                            if h_str in seen_headers:
+                                seen_headers[h_str] += 1
+                                new_header.append(f"{h_str}_{seen_headers[h_str]}")
+                            else:
+                                seen_headers[h_str] = 0
+                                new_header.append(h_str)
+                                
+                        df = pd.DataFrame(rows, columns=new_header)
                         self.tables.append(df)
 
         if self.tables:
@@ -228,10 +243,10 @@ class UniversalDatasetParser:
                 "tran particular", "tran particulars", "transaction particulars", "tran rmks", "tran remarks"
             ],
             "debit": [
-                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount","Dr_Amt"
+                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount","dr amt"
             ],
             "credit": [
-                "credit", "deposit", "cr", "credit amount", "deposit amount","Cr_Amt"
+                "credit", "deposit", "cr", "credit amount", "deposit amount","cr amt"
             ],
             "balance": [
                 "balance", "closing balance", "available balance", "balance amount"
