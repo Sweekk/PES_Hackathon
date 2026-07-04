@@ -203,11 +203,13 @@ def process_real_data(results):
     
     for tx in dataframe_list:
         try:
-            d_val = float(tx.get("Debit") or tx.get("debit") or 0.0)
+            d_str = str(tx.get("Debit") or tx.get("debit") or "0.0").replace(",", "").strip()
+            d_val = float(d_str) if d_str else 0.0
         except ValueError:
             d_val = 0.0
         try:
-            c_val = float(tx.get("Credit") or tx.get("credit") or 0.0)
+            c_str = str(tx.get("Credit") or tx.get("credit") or "0.0").replace(",", "").strip()
+            c_val = float(c_str) if c_str else 0.0
         except ValueError:
             c_val = 0.0
             
