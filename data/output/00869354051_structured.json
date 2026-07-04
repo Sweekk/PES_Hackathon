@@ -1,0 +1,1759 @@
+[
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "Opening Balance",
+        "debit": "",
+        "credit": "",
+        "balance": "0.00"
+    },
+    {
+        "date": "17/04/25",
+        "description": "BB/CHQ DEP/106171/02-04-\n2025/HARDIK/ AXIS BANK LTD",
+        "debit": "",
+        "credit": "50,000.00",
+        "balance": "50,000.00Cr"
+    },
+    {
+        "date": "21/04/25",
+        "description": "ATM-NFS/CASH\nWITHDRAWAL/PIRANGUT IAD\nPIRANGUT MH IN/511111001892/SELF",
+        "debit": "10,000.00",
+        "credit": "",
+        "balance": "40,000.00Cr"
+    },
+    {
+        "date": "21/04/25",
+        "description": "ATM-NFS/CASH\nWITHDRAWAL/PIRANGUT IAD\nPIRANGUT MH IN/511111002048/SELF",
+        "debit": "10,000.00",
+        "credit": "",
+        "balance": "30,000.00Cr"
+    },
+    {
+        "date": "21/04/25",
+        "description": "IMPS-OPM/511111933048/HARDIK LALIT\nMEHTA/UTIB0000004/0269/",
+        "debit": "29,500.00",
+        "credit": "",
+        "balance": "500.00Cr"
+    },
+    {
+        "date": "21/04/25",
+        "description": "NEFT/IDFBH25111255559/AANYA VERMA",
+        "debit": "15.00",
+        "credit": "",
+        "balance": "485.00Cr"
+    },
+    {
+        "date": "23/04/25",
+        "description": "NEFT/IDFBH25113561270/AANYA VERMA",
+        "debit": "25.00",
+        "credit": "",
+        "balance": "460.00Cr"
+    },
+    {
+        "date": "24/04/25",
+        "description": "IMPS-OPW/511410343277/HARDIK LALIT\nMEHTA/UTIB0000004/0269/",
+        "debit": "4.00",
+        "credit": "",
+        "balance": "456.00Cr"
+    },
+    {
+        "date": "24/04/25",
+        "description": "NEFT/IDFBH25114795986/DEEPA",
+        "debit": "50.00",
+        "credit": "",
+        "balance": "406.00Cr"
+    },
+    {
+        "date": "02/05/25",
+        "description": "BLKNEFT/OnscreenPayment/mohit",
+        "debit": "33.00",
+        "credit": "",
+        "balance": "373.00Cr"
+    },
+    {
+        "date": "02/05/25",
+        "description": "IMPS/512212309820/HARDIKLALITMEHT/\nUTIB0003567/0269/IMPS",
+        "debit": "",
+        "credit": "1,000.00",
+        "balance": "1,373.00Cr"
+    },
+    {
+        "date": "02/05/25",
+        "description": "NEFT/AXOMB12253134674/AANYA VERMA",
+        "debit": "",
+        "credit": "28,500.00",
+        "balance": "29,873.00Cr"
+    },
+    {
+        "date": "02/05/25",
+        "description": "IMPS-OPM/512213011308/HARDIK LALIT\nMEHTA/UTIB0000004/0269/",
+        "debit": "29,500.00",
+        "credit": "",
+        "balance": "373.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "02/05/25",
+        "description": "NEFT/AXOMB12254614673/AANYA VERMA",
+        "debit": "",
+        "credit": "20,000.00",
+        "balance": "20,373.00Cr"
+    },
+    {
+        "date": "03/05/25",
+        "description": "IMPS-OPW/512315069329/HARDIK LALIT\nMEHTA/UTIB0000004/0269/",
+        "debit": "3.00",
+        "credit": "",
+        "balance": "20,370.00Cr"
+    },
+    {
+        "date": "03/05/25",
+        "description": "IMPS-OPM/512319474912/HARDIK LALIT\nMEHTA/UTIB0000004/0269/",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "370.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS-OPW/512509690386/AKASH\nSACCHIDANAND\nBORALE/FDRL0001538/3706/",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "368.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/785862101111/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "1.00",
+        "balance": "369.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/682859008662/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "10.00",
+        "balance": "379.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/713296275597/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "2.00",
+        "balance": "381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/420891899709/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "7,000.00",
+        "balance": "7,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/531110010059/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "3,000.00",
+        "balance": "10,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/543849484414/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "30,000.00",
+        "balance": "40,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/SBINR52025050584358412/DEBASI\nS MISHRA\nBANGALORE/SBIN0014951",
+        "debit": "",
+        "credit": "900,000.00",
+        "balance": "940,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/0236919000\n96043",
+        "debit": "301,000.00",
+        "credit": "",
+        "balance": "639,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/8022447922",
+        "debit": "500,000.00",
+        "credit": "",
+        "balance": "139,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/9240200013\n97629",
+        "debit": "139,000.00",
+        "credit": "",
+        "balance": "381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/SBINR52025050584361356/DEBASI\nS MISHRA\nBANGALORE/SBIN0014951",
+        "debit": "",
+        "credit": "900,000.00",
+        "balance": "900,381.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/9240200013\n97629",
+        "debit": "61,053.00",
+        "credit": "",
+        "balance": "839,328.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/8020765526",
+        "debit": "242,000.00",
+        "credit": "",
+        "balance": "597,328.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/9240200680\n72819",
+        "debit": "200,053.00",
+        "credit": "",
+        "balance": "397,275.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/2618020000\n1951",
+        "debit": "200,000.00",
+        "credit": "",
+        "balance": "197,275.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/9240200680\n37285",
+        "debit": "197,053.00",
+        "credit": "",
+        "balance": "222.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS/512511100209/VISHNUPRIYAR/KKBK",
+        "debit": "",
+        "credit": "5,000.00",
+        "balance": "5,222.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "000123/2180/GOD",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/SBINR52025050584373554/DEBASI\nS MISHRA\nBANGALROE/SBIN0014951",
+        "debit": "",
+        "credit": "967,180.00",
+        "balance": "972,402.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/0634264000\n00037",
+        "debit": "500,080.00",
+        "credit": "",
+        "balance": "472,322.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/5020004084\n0829",
+        "debit": "472,000.00",
+        "credit": "",
+        "balance": "322.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS/512511186076/MINIJAYARAJ/BARB0\nUDHAGA/0797/Miscellaneous",
+        "debit": "",
+        "credit": "14,400.00",
+        "balance": "14,722.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/954797391583/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "90,000.00",
+        "balance": "104,722.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IFT/10226620184/Mr. Farhan .\n/11070354",
+        "debit": "82,546.00",
+        "credit": "",
+        "balance": "22,176.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/ICICR52025050500472500/UPEND\nRA SHRINIVAS PENDSE FLAT NO\n703 BLD/ICIC0006493",
+        "debit": "",
+        "credit": "390,126.00",
+        "balance": "412,302.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/6053084803\n0",
+        "debit": "200,152.00",
+        "credit": "",
+        "balance": "212,150.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/10226881341",
+        "debit": "200,250.00",
+        "credit": "",
+        "balance": "11,900.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "FAILED CR TXN",
+        "debit": "",
+        "credit": "200,250.00",
+        "balance": "212,150.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/0323044440\n000491",
+        "debit": "200,250.00",
+        "credit": "",
+        "balance": "11,900.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/549151890870/UPI",
+        "debit": "",
+        "credit": "15,000.00",
+        "balance": "26,900.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "NEFT/SBIN225125141862/SUNITA SAXEN",
+        "debit": "",
+        "credit": "15,000.00",
+        "balance": "41,900.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/3044773383\n3",
+        "debit": "37,600.00",
+        "credit": "",
+        "balance": "4,300.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS-OPW/512515350141/AKHILESH\nYADAV/KKBK0005199/2641/",
+        "debit": "3.00",
+        "credit": "",
+        "balance": "4,297.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS/512515831637/VISHWASVIJAYKAN/\nUTIB0003567/4480/investment",
+        "debit": "",
+        "credit": "15,000.00",
+        "balance": "19,297.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/IOBAR52025050500507442/ASHA\nGOVILA,PREM MOHAN GOVILA 9 MAN\nMAHAL SHE/IOBA0000901",
+        "debit": "",
+        "credit": "1,400,000.00",
+        "balance": "1,419,297.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/1002582032\n43",
+        "debit": "494,962.00",
+        "credit": "",
+        "balance": "924,335.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/88941821002\n8498",
+        "debit": "205,149.00",
+        "credit": "",
+        "balance": "719,186.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/10227143709",
+        "debit": "200,349.00",
+        "credit": "",
+        "balance": "518,837.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/10226860115",
+        "debit": "200,053.00",
+        "credit": "",
+        "balance": "318,784.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/305199443120/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "10,000.00",
+        "balance": "328,784.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/6053084803\n0",
+        "debit": "200,152.00",
+        "credit": "",
+        "balance": "128,632.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/5020010495\n8678",
+        "debit": "124,000.00",
+        "credit": "",
+        "balance": "4,632.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/458302788874/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "1.00",
+        "balance": "4,633.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "IMPS-OPW/512515414912/BANDARI VINAY\nKUMAR/INDB0000356/0651/",
+        "debit": "4,200.00",
+        "credit": "",
+        "balance": "433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/431780476992/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "5,000.00",
+        "balance": "5,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/284434477839/NA",
+        "debit": "",
+        "credit": "15,000.00",
+        "balance": "20,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "NEFT/IDFBH25125119775/Mr\nAVADESH/MAHB0002107",
+        "debit": "10,000.00",
+        "credit": "",
+        "balance": "10,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "RTGS/HDFCR52025050567604671/LOKES\nH KUMAR 1801\nSATELLITE/HDFC0000212",
+        "debit": "",
+        "credit": "1,921,000.00",
+        "balance": "1,931,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/2020009261\n5282",
+        "debit": "250,000.00",
+        "credit": "",
+        "balance": "1,681,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/10226745874",
+        "debit": "200,053.00",
+        "credit": "",
+        "balance": "1,481,380.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "FAILED CR TXN",
+        "debit": "",
+        "credit": "200,053.00",
+        "balance": "1,681,433.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/0018619000\n07933",
+        "debit": "100,076.00",
+        "credit": "",
+        "balance": "1,581,357.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/4013472317992\n897",
+        "debit": "97,909.00",
+        "credit": "",
+        "balance": "1,483,448.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "FAILED CR TXN",
+        "debit": "",
+        "credit": "97,909.00",
+        "balance": "1,581,357.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/OnscreenPayment/8020004978",
+        "debit": "250,074.00",
+        "credit": "",
+        "balance": "1,331,283.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/2020009125\n8081",
+        "debit": "191,000.00",
+        "credit": "",
+        "balance": "1,140,283.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/6053084803\n0",
+        "debit": "150,212.00",
+        "credit": "",
+        "balance": "990,071.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/2150010002\n4755",
+        "debit": "129,631.00",
+        "credit": "",
+        "balance": "860,440.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/OnscreenPayment/31778100046\n146",
+        "debit": "30,070.00",
+        "credit": "",
+        "balance": "830,370.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKIFT/OnscreenPayment/10227045702",
+        "debit": "200,004.00",
+        "credit": "",
+        "balance": "630,366.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKRTGS/BLKPAY_YYYYMMDD/123",
+        "debit": "200,500.00",
+        "credit": "",
+        "balance": "429,866.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,700.00",
+        "credit": "",
+        "balance": "404,166.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "21,411.00",
+        "credit": "",
+        "balance": "382,755.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,050.00",
+        "credit": "",
+        "balance": "342,705.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,000.00",
+        "credit": "",
+        "balance": "302,705.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "39,800.00",
+        "credit": "",
+        "balance": "262,905.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,854.00",
+        "credit": "",
+        "balance": "237,051.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,545.00",
+        "credit": "",
+        "balance": "211,506.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/12",
+        "debit": "25,000.00",
+        "credit": "",
+        "balance": "186,506.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/549136330502/UPI",
+        "debit": "",
+        "credit": "30,800.00",
+        "balance": "217,306.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "41,246.00",
+        "credit": "",
+        "balance": "176,060.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,740.00",
+        "credit": "",
+        "balance": "135,320.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "38,000.00",
+        "credit": "",
+        "balance": "97,320.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "39,833.00",
+        "credit": "",
+        "balance": "57,487.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "32,000.00",
+        "credit": "",
+        "balance": "25,487.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "5,487.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "5,000.00",
+        "credit": "",
+        "balance": "487.00Cr"
+    },
+    {
+        "date": "05/05/25",
+        "description": "UPI/MOB/922621634351/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "19,500.00",
+        "balance": "19,987.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-OPW/512608551299/Akhilesh\nYadav/KKBK0005199/2641/",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "19,985.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-OPW/REV/512608551299/Akhilesh\nYadav/KKBK0005199/2641",
+        "debit": "",
+        "credit": "2.00",
+        "balance": "19,987.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-OPW/512608551641/AKSHAT\nJAIN/FDRL0007777/7826/",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "19,985.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/241339488591/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "1.00",
+        "balance": "19,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/936807479025/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "7,000.00",
+        "balance": "26,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/177108131159/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "3,000.00",
+        "balance": "29,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,000.00",
+        "credit": "",
+        "balance": "4,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "NEFT/\nREJ/OUTWRD_NEFT_FEED_20250506102\n259861713",
+        "debit": "",
+        "credit": "25,000.00",
+        "balance": "29,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,000.00",
+        "credit": "",
+        "balance": "4,986.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/512693248702/UPI",
+        "debit": "",
+        "credit": "5,000.00",
+        "balance": "9,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "RTGS/RNSBR52025050600088415/JOSHI\nMAHESH PRANLAL GAYATRI\nAPPARTM/RNSB0000001",
+        "debit": "",
+        "credit": "450,000.00",
+        "balance": "459,986.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/OnscreenPayment/6053084803\n0",
+        "debit": "111,009.00",
+        "credit": "",
+        "balance": "348,977.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKRTGS/OnscreenPayment/88941821002\n8498",
+        "debit": "205,142.00",
+        "credit": "",
+        "balance": "143,835.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/OnscreenPayment/5010080407\n4094",
+        "debit": "111,009.00",
+        "credit": "",
+        "balance": "32,826.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "2,826.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-OPW/512613085396/AJAY\nKUMAR/YESB0000241/5211/",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "2,824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/512639767674/UPI",
+        "debit": "",
+        "credit": "75,000.00",
+        "balance": "77,824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,000.00",
+        "credit": "",
+        "balance": "37,824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "37,000.00",
+        "credit": "",
+        "balance": "824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/512622161666/UPI",
+        "debit": "",
+        "credit": "30,000.00",
+        "balance": "30,824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "NEFT/SBIN325126584483/Mr Deepa",
+        "debit": "",
+        "credit": "148,000.00",
+        "balance": "178,824.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "NEFT/IDFBH25126399032/GAURAV/BDBL0",
+        "debit": "44,500.00",
+        "credit": "",
+        "balance": "134,324.00Cr"
+    },
+    {
+        "date": "",
+        "description": "002331",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "50,350.00",
+        "credit": "",
+        "balance": "83,974.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "75,200.00",
+        "credit": "",
+        "balance": "8,774.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS/512615017193/PINKIMAURYA/KKBK0\n000123/8490/INVESTMENT",
+        "debit": "",
+        "credit": "25,000.00",
+        "balance": "33,774.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "RTGS/HDFCR52025050668018948/REEM\nA KISHAN AMESAR 356A, FLAT\nNO./HDFC0001993",
+        "debit": "",
+        "credit": "2,600,000.00",
+        "balance": "2,633,774.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "32,000.00",
+        "credit": "",
+        "balance": "2,601,774.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKRTGS/OnscreenPayment/92501001533\n6353",
+        "debit": "1,940,008.00",
+        "credit": "",
+        "balance": "661,766.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKRTGS/OnscreenPayment/2020008394\n2630",
+        "debit": "200,000.00",
+        "credit": "",
+        "balance": "461,766.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/OnscreenPayment/8015778588",
+        "debit": "80,190.00",
+        "credit": "",
+        "balance": "381,576.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKIFT/OnscreenPayment/10227143709",
+        "debit": "200,208.00",
+        "credit": "",
+        "balance": "181,368.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/OnscreenPayment/93110100599\n160",
+        "debit": "102,465.00",
+        "credit": "",
+        "balance": "78,903.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "38,400.00",
+        "credit": "",
+        "balance": "40,503.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "38,000.00",
+        "credit": "",
+        "balance": "2,503.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/883138242108/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "1.00",
+        "balance": "2,504.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/894531246837/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "25,000.00",
+        "balance": "27,504.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "7,504.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-OPW/512617630634/MUHAMMED\nAJAS E/CNRB0002439/6622/",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "7,502.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS-\nOPW/REV/512617630634/MUHAMMED\nAJAS E/CNRB0002439/6622",
+        "debit": "",
+        "credit": "2.00",
+        "balance": "7,504.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IFT/10227045702/Mr. ANAS .\n/21558894",
+        "debit": "2.00",
+        "credit": "",
+        "balance": "7,502.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/393645570706/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "46,500.00",
+        "balance": "54,002.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/031914364800/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "100,000.00",
+        "balance": "154,002.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "50,000.00",
+        "credit": "",
+        "balance": "104,002.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "50,440.00",
+        "credit": "",
+        "balance": "53,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "23,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "3,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "UPI/MOB/512637761535/UPI",
+        "debit": "",
+        "credit": "40,000.00",
+        "balance": "43,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "23,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "3,562.00Cr"
+    },
+    {
+        "date": "06/05/25",
+        "description": "IMPS/512621185391/SEWANDSTYLE/UTIB0\n003567/1368/IMPS",
+        "debit": "",
+        "credit": "20,000.00",
+        "balance": "23,562.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512706975930/MPMARIAPPAN/ICIC\n0006134/7034/IMPSTransaction",
+        "debit": "",
+        "credit": "100.00",
+        "balance": "23,662.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512708452773/ANANDHU\nKRISHNAA J/BKID0008529/2944/",
+        "debit": "3.00",
+        "credit": "",
+        "balance": "23,659.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "20,000.00",
+        "credit": "",
+        "balance": "3,659.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/388183995395/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "5,000.00",
+        "balance": "8,659.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/710100319895/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "2.00",
+        "balance": "8,661.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/939479464829/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "7,500.00",
+        "balance": "16,161.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "15,000.00",
+        "credit": "",
+        "balance": "1,161.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512709201742/MPMARIAPPAN/ICIC\n0006134/7034/IMPSTransaction",
+        "debit": "",
+        "credit": "110,000.00",
+        "balance": "111,161.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/2020009233\n6688",
+        "debit": "110,000.00",
+        "credit": "",
+        "balance": "1,161.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/448304622090/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "4,500.00",
+        "balance": "5,661.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/254652595695/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "100,000.00",
+        "balance": "105,661.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "75,661.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "47,999.00",
+        "credit": "",
+        "balance": "27,662.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "19,775.00",
+        "credit": "",
+        "balance": "7,887.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512711354315/MOHANCHHABALDAS\n/ICIC0000320/6586/IMPSTransaction",
+        "debit": "",
+        "credit": "120,000.00",
+        "balance": "127,887.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "97,887.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,540.00",
+        "credit": "",
+        "balance": "67,347.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "37,347.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "35,000.00",
+        "credit": "",
+        "balance": "2,347.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "RTGS/INDBR32025050700645529/RAHA\nMATHULA ANSARI\nTIRUPUR/INDB0000098",
+        "debit": "",
+        "credit": "1,000,000.00",
+        "balance": "1,002,347.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/5150435498",
+        "debit": "200,000.00",
+        "credit": "",
+        "balance": "802,347.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/2020008381\n0884",
+        "debit": "240,340.00",
+        "credit": "",
+        "balance": "562,007.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512711740992/Anshul\nJayant/IOBA0002655/5473/",
+        "debit": "50,000.00",
+        "credit": "",
+        "balance": "512,007.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512711742414/AMAN DEEP\nEKKA/IDIB000A601/8348/",
+        "debit": "70,191.00",
+        "credit": "",
+        "balance": "441,816.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512711743734/Mr MANDEEP\nSHARMA/CBIN0280797/2162/",
+        "debit": "60,192.00",
+        "credit": "",
+        "balance": "381,624.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/27220110091\n784",
+        "debit": "50,078.00",
+        "credit": "",
+        "balance": "331,546.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/8020004978",
+        "debit": "200,001.00",
+        "credit": "",
+        "balance": "131,545.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/0018619000\n07933",
+        "debit": "100,076.00",
+        "credit": "",
+        "balance": "31,469.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "25,000.00",
+        "credit": "",
+        "balance": "6,469.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "07/05/25",
+        "description": "RTGS/UTIBR52025050700351979/MOHA\nMMEDZUBAIR ABDULKHALIQUE\nABBASILIFE INSURANCE/UTIB0000453",
+        "debit": "",
+        "credit": "1,296,580.00",
+        "balance": "1,303,049.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/4386010000\n8501",
+        "debit": "480,000.00",
+        "credit": "",
+        "balance": "823,049.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/5010078738\n7831",
+        "debit": "457,677.00",
+        "credit": "",
+        "balance": "365,372.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/2020009260\n3478",
+        "debit": "150,282.00",
+        "credit": "",
+        "balance": "215,090.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/5608575305",
+        "debit": "100,000.00",
+        "credit": "",
+        "balance": "115,090.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/43771061976",
+        "debit": "60,268.00",
+        "credit": "",
+        "balance": "54,822.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "35,000.00",
+        "credit": "",
+        "balance": "19,822.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "18,741.00",
+        "credit": "",
+        "balance": "1,081.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "RTGS/INDBR32025050700647417/RAHA\nMATHULA ANSARI\nTIRUPUR/INDB0000098",
+        "debit": "",
+        "credit": "1,000,000.00",
+        "balance": "1,001,081.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/9250200067\n81903",
+        "debit": "200,053.00",
+        "credit": "",
+        "balance": "801,028.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/9240200013\n97629",
+        "debit": "200,053.00",
+        "credit": "",
+        "balance": "600,975.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/3641010000\n06403",
+        "debit": "210,276.00",
+        "credit": "",
+        "balance": "390,699.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKRTGS/OnscreenPayment/0083781000\n06619",
+        "debit": "350,000.00",
+        "credit": "",
+        "balance": "40,699.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,000.00",
+        "credit": "",
+        "balance": "699.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512712601609/KARANKIKRANTHIK/I\nCIC0006306/4804/IMPSTransaction",
+        "debit": "",
+        "credit": "50,000.00",
+        "balance": "50,699.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "23,000.00",
+        "credit": "",
+        "balance": "27,699.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "18,300.00",
+        "credit": "",
+        "balance": "9,399.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/512732641014/Sent using Paytm\nUPI",
+        "debit": "",
+        "credit": "35,000.00",
+        "balance": "44,399.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "30,000.00",
+        "credit": "",
+        "balance": "14,399.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "14,000.00",
+        "credit": "",
+        "balance": "399.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/549390046313/UPI",
+        "debit": "",
+        "credit": "75,000.00",
+        "balance": "75,399.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/OnscreenPayment/8015778588",
+        "debit": "60,192.00",
+        "credit": "",
+        "balance": "15,207.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "10,000.00",
+        "credit": "",
+        "balance": "5,207.00Cr"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512714859138/DEEPAKKUMARDUBE\n/UTIB0003567/3092/IMPS",
+        "debit": "",
+        "credit": "125,000.00",
+        "balance": "130,207.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512714128135/PHILEMON\nCONSTANCE ARUNG/BKID0003132/0963/",
+        "debit": "130,000.00",
+        "credit": "",
+        "balance": "207.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512715796888/PINKIMAURYA/KKBK\n0000123/8490/INVESTMENT",
+        "debit": "",
+        "credit": "100,000.00",
+        "balance": "100,207.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512715240716/PHILEMON\nCONSTANCE ARUNG/BKID0003132/0963/",
+        "debit": "54,523.00",
+        "credit": "",
+        "balance": "45,684.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "BLKNEFT/BLKPAY_YYYYMMDD/123",
+        "debit": "40,000.00",
+        "credit": "",
+        "balance": "5,684.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "UPI/MOB/674198126665/Payment from\nPhonePe",
+        "debit": "",
+        "credit": "5,000.00",
+        "balance": "10,684.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS/512718316988/DHANANJAYAK/CNR\nB0005558/0980/IMPS",
+        "debit": "",
+        "credit": "50,000.00",
+        "balance": "60,684.00Cr"
+    },
+    {
+        "date": "07/05/25",
+        "description": "IMPS-OPW/512718631700/Sanjeev\nSen/IDIB000B122/8213/",
+        "debit": "60,192.00",
+        "credit": "",
+        "balance": "492.00Cr"
+    },
+    {
+        "date": "08/05/25",
+        "description": "IMPS/512810482321/NITYANANDSHARMA/\nUTIB0003567/4302/IMPS",
+        "debit": "",
+        "credit": "50,000.00",
+        "balance": "50,492.00Cr"
+    },
+    {
+        "date": "23/06/25",
+        "description": "Court Order recovery Crl.M.P.\nNo.1804/2025",
+        "debit": "50,492.00",
+        "credit": "",
+        "balance": "0.00"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    },
+    {
+        "date": "",
+        "description": "",
+        "debit": "0.0",
+        "credit": "0.0",
+        "balance": "0.0"
+    }
+]

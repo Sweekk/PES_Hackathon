@@ -284,52 +284,8 @@ else:
         "across ACC_101, ACC_202, and ACC_303. Structuring patterns were also flagged just below the Rs. 50,000 threshold."
     )
 
-# ==========================================================
-# SIDEBAR
-# ==========================================================
-with st.sidebar:
-    # Logo rendering
-    ASSETS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
-    logo_path = os.path.join(ASSETS_DIR, "logo.png")
-    if os.path.exists(logo_path):
-        st.image(logo_path, use_container_width=True)
-    else:
-        st.title("🔍 BankLens AI")
-    st.markdown("**Version:** 1.0.0-Beta")
-    st.markdown("---")
-    
-    # Sensitivity Controls
-    st.header("⚙️ Controls")
-    sensitivity = st.selectbox(
-        "Sensitivity Level",
-        ["Low", "Medium", "High"],
-        index=1,
-        help="Adjusts behavioral thresholds for anomaly detection algorithms."
-    )
-    
-    # Configuration Controls
-    st.header("⚙️ Configuration")
-    use_chandra = st.checkbox("Enable Chandra OCR (PDF Scans)", value=False)
-    chandra_url = st.text_input("Chandra vLLM API Base", "http://localhost:8000/v1")
-    backend_url = st.text_input("FastAPI Backend URL", "http://localhost:8000")
-    
-    # Upload history
-    st.header("⏳ Upload History")
-    if "upload_history" not in st.session_state:
-        st.session_state["upload_history"] = []
-    
-    if st.session_state["upload_history"]:
-        for h in st.session_state["upload_history"][-3:]:
-            st.markdown(f"📄 `{h['filename']}` ({h['time']})")
-    else:
-        st.info("No files parsed yet.")
-        
-    st.markdown("---")
-    st.header("ℹ️ About")
-    st.markdown(
-        "BankLens AI utilizes automated transaction matching and graph analytics "
-        "to reconstruct fund flows, behaviors, and behavioral anomalies."
-    )
+# Sidebar removed by user request
+
 
 # ==========================================================
 # HELPERS
@@ -472,10 +428,37 @@ def ask_ollama(prompt, history):
         return f"Hello! I am BankLens AI chatbot. Ollama llama3.2 is currently not reachable (Details: {e}). Based on your request, I can summarize that we detected anomalous transaction activity in accounts ACC_101 and ACC_202, showing structural characteristics matching round-tripping."
 
 # ==========================================================
-# SECTION 1: FILE UPLOAD
+# SECTION 1: FILE UPLOAD & CONFIGURATION
 # ==========================================================
 st.title("🔍 BankLens AI")
 st.markdown("### Automated Bank Statement Analysis")
+
+# System Configurations (previously in Sidebar)
+with st.expander("⚙️ Settings & System Configuration", expanded=False):
+    col_cfg1, col_cfg2, col_cfg3 = st.columns(3)
+    with col_cfg1:
+        sensitivity = st.selectbox(
+            "Sensitivity Level",
+            ["Low", "Medium", "High"],
+            index=1,
+            help="Adjusts behavioral thresholds for anomaly detection algorithms."
+        )
+    with col_cfg2:
+        use_chandra = st.checkbox("Enable Chandra OCR (PDF Scans)", value=False)
+        chandra_url = st.text_input("Chandra vLLM API Base", "http://localhost:8000/v1")
+    with col_cfg3:
+        backend_url = st.text_input("FastAPI Backend URL", "http://localhost:8000")
+        
+    st.markdown("---")
+    st.subheader("⏳ Upload History")
+    if "upload_history" not in st.session_state:
+        st.session_state["upload_history"] = []
+    
+    if st.session_state["upload_history"]:
+        for h in st.session_state["upload_history"][-3:]:
+            st.markdown(f"📄 `{h['filename']}` ({h['time']})")
+    else:
+        st.info("No files parsed yet.")
 
 # File uploader
 uploaded_file = st.file_uploader(
