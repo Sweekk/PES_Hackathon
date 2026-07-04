@@ -29,7 +29,7 @@ def run_pipeline(file_path, use_chandra=False, chandra_api_base="http://localhos
 
     # Copy file to input folder if not already there
     dest_path = os.path.join(input_dir, os.path.basename(file_path))
-    if os.path.abspath(file_path) != os.path.abspath(dest_path):
+    if os.path.normcase(os.path.abspath(file_path)) != os.path.normcase(os.path.abspath(dest_path)):
         import shutil
         shutil.copy(file_path, dest_path)
 
