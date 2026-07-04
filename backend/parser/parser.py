@@ -5,27 +5,25 @@ import pdfplumber
 import pandas as pd
 
 class UniversalDatasetParser:
+    # -----------------------------------------------------
     def __init__(self, file_path, use_chandra=False, chandra_method="vllm", chandra_api_base="http://localhost:8000/v1", chandra_api_key="EMPTY"):
         self.file_path = file_path
-        self.use_chandra = use_chandra
-        self.chandra_method = chandra_method
-        self.chandra_api_base = chandra_api_base
-        self.chandra_api_key = chandra_api_key
-
         self.metadata = {}
         self.tables = []
         self.transactions = pd.DataFrame()
         self.raw_text = []
         self.schema = {}
         self.document = {}
+        self.reverse_column_mapping = {}
 
+    # -----------------------------------------------------
+    # Main Parser
+    # -----------------------------------------------------
     def parse(self):
         extension = os.path.splitext(self.file_path)[1].lower()
         if extension == ".pdf":
-            if self.use_chandra:
-                self.parse_pdf_chandra()
-            else:
-                self.parse_pdf()
+            # Reverted to extract text and tables natively without Chandra OCR
+            self.parse_pdf()
         elif extension == ".csv":
             self.parse_csv()
         elif extension in [".xls", ".xlsx"]:
@@ -35,6 +33,9 @@ class UniversalDatasetParser:
         
         self.normalize_transactions()
 
+    # -----------------------------------------------------
+    # PDF
+    # -----------------------------------------------------
     def parse_pdf(self):
         print("\nReading PDF...")
         with pdfplumber.open(self.file_path) as pdf:
@@ -43,7 +44,7 @@ class UniversalDatasetParser:
             self.metadata["filename"] = os.path.basename(self.file_path)
 
             for page_no, page in enumerate(pdf.pages, start=1):
-                # Text
+                # -------- TEXT --------
                 text = page.extract_text()
                 if text:
                     self.raw_text.append({
@@ -51,7 +52,7 @@ class UniversalDatasetParser:
                         "content": text
                     })
 
-                # Tables
+                # -------- TABLES --------
                 extracted_tables = page.extract_tables()
                 if extracted_tables:
                     for table in extracted_tables:
@@ -65,61 +66,9 @@ class UniversalDatasetParser:
         if self.tables:
             self.transactions = pd.concat(self.tables, ignore_index=True)
 
-    def parse_pdf_chandra(self):
-        print(f"\nParsing PDF using Chandra OCR ({self.chandra_method})...")
-        try:
-            from chandra.input import load_file
-            from chandra.model import InferenceManager
-            from chandra.model.schema import BatchInputItem
-        except ImportError as e:
-            raise ImportError(
-                "Chandra OCR libraries are not fully installed. Ensure 'chandra-ocr' is installed. Details: " + str(e)
-            )
-
-        # Convert PDF pages into PIL Images
-        images = load_file(self.file_path, {})
-        
-        self.metadata["pages"] = len(images)
-        self.metadata["filetype"] = "PDF_OCR"
-        self.metadata["filename"] = os.path.basename(self.file_path)
-
-        # Set environment variables for Chandra configuration
-        os.environ["VLLM_API_BASE"] = self.chandra_api_base
-        os.environ["VLLM_API_KEY"] = self.chandra_api_key
-
-        manager = InferenceManager(method=self.chandra_method)
-        batch = [BatchInputItem(image=img, prompt_type="ocr_layout") for img in images]
-
-        results = manager.generate(batch, vllm_api_base=self.chandra_api_base)
-
-        for page_no, res in enumerate(results, start=1):
-            if res.error:
-                print(f"Error parsing page {page_no} with Chandra OCR.")
-                continue
-
-            if res.markdown:
-                self.raw_text.append({
-                    "page": page_no,
-                    "content": res.markdown
-                })
-
-            if res.html:
-                try:
-                    import io
-                    extracted_dfs = pd.read_html(io.StringIO(res.html))
-                    for df in extracted_dfs:
-                        if len(df) < 2:
-                            continue
-                        header = df.iloc[0].fillna("").astype(str).tolist()
-                        rows = df.iloc[1:]
-                        cleaned_df = pd.DataFrame(rows.values, columns=header)
-                        self.tables.append(cleaned_df)
-                except Exception as table_err:
-                    print(f"Error extracting tables from page {page_no} HTML: {table_err}")
-
-        if self.tables:
-            self.transactions = pd.concat(self.tables, ignore_index=True)
-
+    # -----------------------------------------------------
+    # CSV
+    # -----------------------------------------------------
     def parse_csv(self):
         print("\nReading CSV...")
         self.transactions = pd.read_csv(self.file_path)
@@ -130,6 +79,9 @@ class UniversalDatasetParser:
             "rows": len(self.transactions)
         }
 
+    # -----------------------------------------------------
+    # EXCEL
+    # -----------------------------------------------------
     def parse_excel(self):
         print("\nReading Excel...")
         excel = pd.ExcelFile(self.file_path)
@@ -139,6 +91,7 @@ class UniversalDatasetParser:
             "sheets": excel.sheet_names
         }
 
+        # Read every sheet as RAW
         self.tables = []
         for sheet in excel.sheet_names:
             raw = pd.read_excel(
@@ -151,53 +104,72 @@ class UniversalDatasetParser:
         
         self.finalize_excel()
 
-    def process_excel_sheet(self, raw_df):
-        header_row = self.find_transaction_header(raw_df)
-        if header_row is None:
-            print("No transaction table found.")
-            return
+    # -----------------------------------------------------
+    def get_tables(self):
+        return self.tables
 
-        # Metadata
-        metadata_df = raw_df.iloc[:header_row]
-        self.metadata.update(self.extract_metadata(metadata_df))
+    # -----------------------------------------------------
+    def get_metadata(self):
+        return self.metadata
 
-        # Transactions
-        headers = raw_df.iloc[header_row].fillna("").astype(str).tolist()
-        transaction_df = raw_df.iloc[header_row + 1:].copy()
-        transaction_df.columns = headers
-        transaction_df = transaction_df.reset_index(drop=True)
-        transaction_df = transaction_df.dropna(how="all")
-        self.tables.append(transaction_df)
+    # -----------------------------------------------------
+    def get_transactions(self):
+        return self.transactions
 
-    def finalize_excel(self):
-        raw_tables = self.tables.copy()
-        self.tables = []
-        for raw in raw_tables:
-            self.process_excel_sheet(raw)
+    # -----------------------------------------------------
+    def get_text(self):
+        return self.raw_text
 
-        if self.tables:
-            self.transactions = pd.concat(self.tables, ignore_index=True)
-
+    # -----------------------------------------------------
+    def get_document(self):
+        self.build_document()
+        return self.document
+    
+    # -----------------------------------------------------
+    # Find Transaction Header
+    # -----------------------------------------------------
     def find_transaction_header(self, df):
+        """
+        Finds the row where the actual transaction table starts.
+        """
         keywords = {
-            "date", "post date", "posting date", "transaction date", "txn date", "value date",
-            "description", "remarks", "narration", "particulars", "debit", "withdrawal", "dr",
+            "date", "post date", "posting date", "transaction date", "txn date", "value date", "tran date",
+            "description", "narration", "remarks", "remark", "particulars", "particular", "debit", "withdrawal", "dr",
             "credit", "deposit", "cr", "balance", "amount"
         }
 
         best_row = None
         best_score = 0
+
         for idx, row in df.iterrows():
             values = [str(v).strip().lower() for v in row.tolist() if pd.notna(v)]
-            score = sum(1 for value in values if value in keywords)
+            score = 0
+            for val in values:
+                for kw in keywords:
+                    if len(kw) <= 2:
+                        # Exact match for short keywords like dr, cr
+                        if kw == val or f" {kw} " in f" {val} " or val.startswith(f"{kw} ") or val.endswith(f" {kw}"):
+                            score += 1
+                            break
+                    else:
+                        # Substring match for longer keywords
+                        if kw in val:
+                            score += 1
+                            break
+                            
             if score > best_score:
                 best_score = score
                 best_row = idx
 
+        # Need at least TWO matching keywords
         if best_score >= 2:
             return best_row
+
         return None
 
+    # -----------------------------------------------------
+    # Extract Metadata
+    # -----------------------------------------------------
     def extract_metadata(self, metadata_df):
         metadata = {}
         for _, row in metadata_df.iterrows():
@@ -207,50 +179,116 @@ class UniversalDatasetParser:
                 metadata[key] = values[1]
         return metadata
 
+    # -----------------------------------------------------
+    # Process Raw Excel Sheet
+    # -----------------------------------------------------
+    def process_excel_sheet(self, raw_df):
+        header_row = self.find_transaction_header(raw_df)
+        if header_row is None:
+            print("No transaction table found.")
+            return
+
+        # ---------------- Metadata ----------------
+        metadata_df = raw_df.iloc[:header_row]
+        self.metadata.update(self.extract_metadata(metadata_df))
+
+        # ---------------- Transactions ----------------
+        headers = raw_df.iloc[header_row].fillna("").astype(str).tolist()
+        transaction_df = raw_df.iloc[header_row + 1:].copy()
+        transaction_df.columns = headers
+        transaction_df = transaction_df.reset_index(drop=True)
+
+        # Remove empty rows
+        transaction_df = transaction_df.dropna(how="all")
+        self.tables.append(transaction_df)
+
+    # -----------------------------------------------------
+    # Finalize Excel
+    # -----------------------------------------------------
+    def finalize_excel(self):
+        raw_tables = self.tables.copy()
+        self.tables = []
+        for raw in raw_tables:
+            self.process_excel_sheet(raw)
+
+        if self.tables:
+            self.transactions = pd.concat(self.tables, ignore_index=True)
+
+    # -----------------------------------------------------
+    # Canonical Column Dictionary
+    # -----------------------------------------------------
     def get_column_aliases(self):
         return {
-            "date": ["date", "transaction date", "txn date", "posting date", "value date", "post date", "txn dt", "transaction dt", "post dt", "posting dt"],
-            "description": ["description", "remarks", "remark", "narration", "particulars", "details", "txn type"],
-            "debit": ["debit", "withdrawal", "withdraw", "dr"],
-            "credit": ["credit", "deposit", "cr"],
-            "balance": ["balance", "closing balance", "available balance"],
-            "amount": ["amount", "transaction amount", "txn amount"],
-            "reference": ["reference", "utr", "rrn", "transaction id", "txn id", "ref chq no", "ref txn no", "chq no", "cheque no", "cheque number", "check no"],
-            "batch_number": ["batch no", "batch number", "batch", "ctr batch no", "ctr batch number", "batch_no"],
-            "account_number": ["account number", "a/c number", "account no"],
-            "ifsc": ["ifsc", "ifsc code"]
+            "date": [
+                "date", "transaction date", "txn date", "posting date", "value date", "post date",
+                "txn dt", "transaction dt", "post dt", "posting dt", "tran date", "val date", 
+            ],
+            "description": [
+                "description", "remarks", "remark", "narration", "particulars", "particular", "details", "txn type",
+                "tran particular", "tran particulars", "transaction particulars", "tran rmks", "tran remarks"
+            ],
+            "debit": [
+                "debit", "withdrawal", "withdraw", "dr", "debit amount", "withdrawal amount","Dr_Amt"
+            ],
+            "credit": [
+                "credit", "deposit", "cr", "credit amount", "deposit amount","Cr_Amt"
+            ],
+            "balance": [
+                "balance", "closing balance", "available balance", "balance amount"
+            ],
+            "amount": [
+                "amount", "transaction amount", "txn amount"
+            ],
+            "reference": [
+                "reference", "utr", "rrn", "transaction id", "txn id", "ref chq no", "ref txn no",
+                "chq no", "cheque no", "cheque number", "check no"
+            ],
+            "batch_number": [
+                "batch no", "batch number", "batch", "ctr batch no", "ctr batch number", "batch_no"
+            ],
+            "account_number": [
+                "account number", "a/c number", "account no"
+            ],
+            "ifsc": [
+                "ifsc", "ifsc code"
+            ]
         }
 
+    # -----------------------------------------------------
+    # Infer Single Column
+    # -----------------------------------------------------
     def infer_column(self, column_name, series):
         aliases = self.get_column_aliases()
         name = str(column_name).lower().strip()
         name = re.sub(r"_+", " ", name)
 
+        # ---------------- Alias Matching ----------------
         for canonical, words in aliases.items():
             if name in words:
                 return canonical, 100
 
+        # ---------------- Sample Values ----------------
         values = series.dropna().astype(str).head(20).tolist()
 
-        # Date
+        # ---------------- Date ----------------
         date_pattern = r"\s*\d{1,4}[/-]\d{1,2}[/-]\d{2,4}(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?\s*"
         matches = sum(bool(re.fullmatch(date_pattern, v)) for v in values)
         if matches >= max(3, len(values)//2):
             return "date", 85
 
-        # IFSC
+        # ---------------- IFSC ----------------
         matches = sum(bool(re.fullmatch(r"[A-Z]{4}0[A-Z0-9]{6}", v)) for v in values)
         if matches >= 3:
             return "ifsc", 90
 
-        # Account Number
+        # ---------------- Account Number ----------------
         non_account_indicators = ["chq", "cheque", "ref", "branch", "code", "zip", "phone", "mobile", "date", "dt", "batch", "amount", "debit", "credit", "balance"]
         if not any(ind in name for ind in non_account_indicators):
             matches = sum(bool(re.fullmatch(r"\d{9,18}", v)) for v in values)
             if matches >= 3:
                 return "account_number", 85
 
-        # Numeric
+        # ---------------- Numeric ----------------
         numeric = pd.to_numeric(series, errors="coerce")
         if numeric.notna().sum() > len(series) * 0.7:
             if "bal" in name:
@@ -259,7 +297,7 @@ class UniversalDatasetParser:
             if not any(indicator in name for indicator in non_amount_indicators):
                 return "amount", 70
 
-        # Description
+        # ---------------- Description ----------------
         sample = " ".join(values).lower()
         keywords = ["upi", "atm", "neft", "imps", "rtgs", "cash", "transfer"]
         if any(word in sample for word in keywords):
@@ -267,11 +305,14 @@ class UniversalDatasetParser:
 
         return "UNKNOWN", 0
 
+    # -----------------------------------------------------
+    # Normalize Whole DataFrame
+    # -----------------------------------------------------
     def normalize_transactions(self):
         if self.transactions.empty:
             return
 
-        # Deduplicate column names
+        # Deduplicate column names to handle empty or duplicate headers
         cols = []
         count = {}
         for col in self.transactions.columns:
@@ -305,7 +346,7 @@ class UniversalDatasetParser:
             else:
                 unknown[column] = self.transactions[column].head(5).tolist()
 
-        # Deduplicate renamed canonical columns
+        # Deduplicate renamed canonical columns to avoid duplicate column names
         rename_dedup = {}
         canonical_count = {}
         for original, canonical in rename.items():
@@ -317,6 +358,7 @@ class UniversalDatasetParser:
                 rename_dedup[original] = canonical
 
         self.transactions.rename(columns=rename_dedup, inplace=True)
+        self.reverse_column_mapping = {v: k for k, v in rename_dedup.items()}
 
         if unknown:
             print("\n========== UNKNOWN COLUMNS ==========\n")
@@ -326,10 +368,13 @@ class UniversalDatasetParser:
                 print()
         print("\nSchema inference complete.\n")
 
+    # -----------------------------------------------------
+    # Build Final Document
+    # -----------------------------------------------------
     def build_document(self):
         transactions = []
         if not self.transactions.empty:
-            # Map canonical names to target output names
+            # Map canonical names to target output names to ensure downstream compatibility
             mapping = {
                 "date": "Date",
                 "description": "Narration",
@@ -338,26 +383,55 @@ class UniversalDatasetParser:
                 "balance": "Balance"
             }
             
-            # Match columns to their canonical equivalents
+            # Match columns to their canonical equivalents using alias-priority scoring
             final_cols = {}
-            for col in self.transactions.columns:
-                clean_name = col.split("_")[0]
-                if clean_name in mapping:
-                    target_name = mapping[clean_name]
-                    if target_name not in final_cols:
-                        final_cols[target_name] = col
+            aliases = self.get_column_aliases()
             
-            # Construct cleaned dataframe
+            for canon_name, target_name in mapping.items():
+                matching_cols = []
+                for col in self.transactions.columns:
+                    if col == canon_name or col.startswith(f"{canon_name}_"):
+                        matching_cols.append(col)
+                        
+                if not matching_cols:
+                    continue
+                    
+                # Score each matching column based on original name priority in aliases list
+                best_col = None
+                best_score = 999
+                for col in matching_cols:
+                    orig_name = self.reverse_column_mapping.get(col, "")
+                    orig_clean = str(orig_name).lower().strip().replace("_", " ")
+                    alias_list = aliases.get(canon_name, [])
+                    try:
+                        score = alias_list.index(orig_clean)
+                    except ValueError:
+                        score = 999
+                        
+                    if score < best_score:
+                        best_score = score
+                        best_col = col
+                        
+                if best_col is None:
+                    best_col = matching_cols[0]
+                final_cols[target_name] = best_col
+            
+            # Construct cleaned dataframe and filter/clean NaN values
             clean_df = pd.DataFrame()
             for canon_name, target_name in mapping.items():
                 source_col = final_cols.get(target_name)
                 if source_col and source_col in self.transactions.columns:
-                    clean_df[target_name] = self.transactions[source_col]
+                    series = self.transactions[source_col]
+                    if canon_name in ["debit", "credit", "balance"]:
+                        series = series.fillna("0.0").replace("nan", "0.0").replace("NaN", "0.0")
+                    else:
+                        series = series.fillna("").replace("nan", "").replace("NaN", "")
+                    clean_df[target_name] = series
                 else:
                     clean_df[target_name] = ""
             
             # Filter and store only these 5 columns in the transactions list
-            transactions = clean_df.fillna("").to_dict(orient="records")
+            transactions = clean_df.to_dict(orient="records")
 
         self.document = {
             "source": {
@@ -370,12 +444,16 @@ class UniversalDatasetParser:
             "raw_text": self.raw_text
         }
 
+    # -----------------------------------------------------
+    # Export JSON
+    # -----------------------------------------------------
     def export_json(self, output_file="parsed_document.json"):
         self.build_document()
         with open(output_file, "w", encoding="utf8") as f:
             json.dump(self.document, f, indent=4, ensure_ascii=False)
         print(f"\nSaved JSON -> {output_file}")
 
+    # -----------------------------------------------------
     def inspect(self):
         print("\n========== PARSER SUMMARY ==========\n")
         print(f"File : {self.metadata.get('filename','')}")
@@ -385,8 +463,9 @@ class UniversalDatasetParser:
         print(f"Columns : {list(self.transactions.columns)}")
         print()
 
+    # -----------------------------------------------------
     def get_dataframe(self):
-        # Return dataframe with the filtered columns
+        # Return dataframe with the mapped columns to prevent breaking structurer/app
         mapping = {
             "date": "Date",
             "description": "Narration",
@@ -394,23 +473,50 @@ class UniversalDatasetParser:
             "credit": "Credit",
             "balance": "Balance"
         }
+        
+        # Match columns to their canonical equivalents using alias-priority scoring
         final_cols = {}
-        for col in self.transactions.columns:
-            clean_name = col.split("_")[0]
-            if clean_name in mapping:
-                target_name = mapping[clean_name]
-                if target_name not in final_cols:
-                    final_cols[target_name] = col
+        aliases = self.get_column_aliases()
+        
+        for canon_name, target_name in mapping.items():
+            matching_cols = []
+            for col in self.transactions.columns:
+                if col == canon_name or col.startswith(f"{canon_name}_"):
+                    matching_cols.append(col)
+                    
+            if not matching_cols:
+                continue
+                
+            # Score each matching column based on original name priority in aliases list
+            best_col = None
+            best_score = 999
+            for col in matching_cols:
+                orig_name = self.reverse_column_mapping.get(col, "")
+                orig_clean = str(orig_name).lower().strip().replace("_", " ")
+                alias_list = aliases.get(canon_name, [])
+                try:
+                    score = alias_list.index(orig_clean)
+                except ValueError:
+                    score = 999
+                    
+                if score < best_score:
+                    best_score = score
+                    best_col = col
+                    
+            if best_col is None:
+                best_col = matching_cols[0]
+            final_cols[target_name] = best_col
         
         clean_df = pd.DataFrame()
         for canon_name, target_name in mapping.items():
             source_col = final_cols.get(target_name)
             if source_col and source_col in self.transactions.columns:
-                clean_df[target_name] = self.transactions[source_col]
+                series = self.transactions[source_col]
+                if canon_name in ["debit", "credit", "balance"]:
+                    series = series.fillna("0.0").replace("nan", "0.0").replace("NaN", "0.0")
+                else:
+                    series = series.fillna("").replace("nan", "").replace("NaN", "")
+                clean_df[target_name] = series
             else:
                 clean_df[target_name] = ""
         return clean_df
-
-    def get_document(self):
-        self.build_document()
-        return self.document

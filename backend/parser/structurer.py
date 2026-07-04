@@ -32,7 +32,7 @@ class Structurer:
         if self.structured:
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(self.structured, f, indent=4, ensure_ascii=False)
-            print(f"💾 Local cache checkpoint saved: {output_file}")
+            print(f"Local cache checkpoint saved: {output_file}")
 
     def to_ollama_string(self, max_rows: int = 20) -> str:
         """Serializes historical data slices into string lines for context processing."""
