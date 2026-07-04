@@ -1122,7 +1122,13 @@ if st.session_state.get("analyzed"):
     # PAGE 3: LLM CHATBOT
     # ------------------------------------------------------
     elif page == "🤖 Ask Questions (LLM Chatbot)":
-        st.header("Interactive Graph & Behavioral Chatbot")
+        col_header, col_back = st.columns([3, 1])
+        with col_header:
+            st.header("Interactive Graph & Behavioral Chatbot")
+        with col_back:
+            if st.button("⬅️ Back to Dashboard", use_container_width=True):
+                st.session_state["target_nav_page"] = "📊 Dashboard & Overview"
+                st.rerun()
         
         col_chat1, col_chat2 = st.columns([2, 3])
         

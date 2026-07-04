@@ -375,6 +375,28 @@ class UniversalDatasetParser:
         self.transactions.rename(columns=rename_dedup, inplace=True)
         self.reverse_column_mapping = {v: k for k, v in rename_dedup.items()}
 
+        # Filter out completely blank/empty rows to prevent false positive anomalies
+        if not self.transactions.empty:
+            def is_empty_series(s):
+                return s.fillna("").astype(str).str.strip().replace("nan", "").replace("NaN", "") == ""
+
+            def is_zero_or_empty(s):
+                cleaned = s.fillna("0.0").astype(str).str.strip().replace("nan", "0.0").replace("NaN", "0.0").replace("", "0.0")
+                return cleaned.isin(["0.0", "0", "0.00"])
+
+            date_col = next((c for c in self.transactions.columns if c == "date" or c.startswith("date_")), None)
+            desc_col = next((c for c in self.transactions.columns if c == "description" or c.startswith("description_")), None)
+            debit_col = next((c for c in self.transactions.columns if c == "debit" or c.startswith("debit_")), None)
+            credit_col = next((c for c in self.transactions.columns if c == "credit" or c.startswith("credit_")), None)
+
+            date_empty = is_empty_series(self.transactions[date_col]) if date_col else pd.Series(True, index=self.transactions.index)
+            desc_empty = is_empty_series(self.transactions[desc_col]) if desc_col else pd.Series(True, index=self.transactions.index)
+            debit_zero = is_zero_or_empty(self.transactions[debit_col]) if debit_col else pd.Series(True, index=self.transactions.index)
+            credit_zero = is_zero_or_empty(self.transactions[credit_col]) if credit_col else pd.Series(True, index=self.transactions.index)
+
+            blank_mask = date_empty & desc_empty & debit_zero & credit_zero
+            self.transactions = self.transactions[~blank_mask].reset_index(drop=True)
+
         if unknown:
             print("\n========== UNKNOWN COLUMNS ==========\n")
             for col, values in unknown.items():
